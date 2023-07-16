@@ -23,7 +23,7 @@ const TaskList = (props) => {
     <View style={{ flex: 20, alignItems: 'center' }}>
       <FlatList style={{flex: 1}}
         data={Tasksss}
-        renderItem={({ item }) => { return <TaskItem task={item}/>; }}
+        renderItem={({ item }) => { return <TaskItem page='Tasks' task={item}/>; }}
       />
     </View>
   );

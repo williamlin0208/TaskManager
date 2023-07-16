@@ -1,10 +1,9 @@
 import React from 'react';
 import {Dimensions, View, Text, StyleSheet} from 'react-native';
 
-import {Detail} from '../../buttons/buttons';
-import { Button } from 'react-native-elements';
+import {Detail, Accept} from '../../buttons/buttons';
 
-const Tasks=[
+const Tasksss=[
   {
     title: '搬東西',
     day: 'Tues',
@@ -25,6 +24,28 @@ const {
 } = Dimensions.get('window');
 
 const TaskItem = (props) => {
+
+  buttons=()=>{
+    if(props.page=='Home'){
+      return (
+        <View style={{flex: 1, flexDirection: 'row'}}>
+          <View style={styles.button}>
+            <Detail/>
+          </View>
+          <View style={styles.button}>
+            <Accept/>
+          </View>
+        </View>
+      );
+    }else if(props.page=='Tasks'){
+      return (
+        <View style={styles.button}>
+          <Detail/>
+        </View>
+      );
+    }
+  }
+
   return (
     <View style={styles.block}>
       <View style={styles.title}>
@@ -34,9 +55,7 @@ const TaskItem = (props) => {
         <Text>星期:{props.task.day}</Text>
         <Text>時間:{props.task.time}</Text>
         <Text>費用:{props.task.fee}</Text>
-        <View style={styles.button}>
-          <Detail/>
-        </View>
+        {buttons()}
       </View>
     </View>
   );
@@ -62,6 +81,9 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
   button:{
-    paddingTop: 5
+    paddingTop: 5,
+    marginLeft: 5,
+    marginRight: 5,
+    flex: 1
   }
 });

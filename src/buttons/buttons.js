@@ -37,12 +37,34 @@ export const Detail = (props) => {
   );
 };
 
+export const Accept = (props) => {
+
+  const navigation = useNavigation();
+
+  onDetailPress = () => {
+  }
+
+  return (
+    <TouchableOpacity onPress={onDetailPress}>
+      <View style={styles.detail}>
+        <Text>接受</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
 const styles = StyleSheet.create({
   back: {
     borderRadius: 1000000,
     backgroundColor: '#88baec'
   },
   detail: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    backgroundColor: '#ffffff'
+  },
+  accept:{
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
