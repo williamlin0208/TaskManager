@@ -16,7 +16,7 @@ ctm_bar = ({ route }) => ({
   tabBarIcon: ({ focused, color, size }) => {
     let iconName;
 
-    if (route.name === 'Home') {
+    if (route.name === 'Bulletin') {
       iconName = focused ? 'ios-information-circle' : 'ios-information-circle-outline';
     }else if (route.name === 'Tasks'){
       iconName = focused ? 'ios-list' : 'ios-list-outline';
@@ -33,8 +33,8 @@ ctm_bar = ({ route }) => ({
 
 const Nav_Tab = () => {
   return (
-    <Tab.Navigator screenOptions={({route})=>(ctm_bar({route}))} initialRouteName="Home">
-        <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 0 }}/>
+    <Tab.Navigator screenOptions={({route})=>(ctm_bar({route}))} initialRouteName="Bulletin">
+        <Tab.Screen name="Bulletin" component={HomeScreen} options={{ tabBarBadge: 0 }}/>
         <Tab.Screen name="Tasks" component={Tasks} options={{ tabBarBadge: 0 }}/>
         <Tab.Screen name="Settings" component={Settings} options={{ tabBarBadge: null }}/>
     </Tab.Navigator>
