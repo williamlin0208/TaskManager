@@ -24,14 +24,14 @@ const HomeScreen = () => {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <View style={styles.fab}>
-        {manager?<Text>新增工作</Text>:""}
         <FAB
           visible={manager?true:false}
           icon={{ name: 'add', color: 'white' }}
           color="#88baec"
           size='large'
           onPress={onNewWorkPress}
-        />      
+        />
+        {manager?<Text style={{marginTop: 10, color: '#444444'}}>Add New Task</Text>:""}   
       </View>
       <Text>Hello World!</Text>
     </View>
