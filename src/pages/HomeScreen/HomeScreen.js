@@ -6,54 +6,27 @@ import {useNavigation} from '@react-navigation/core';
 
 import {ThemeContext} from '../../../Shared';
 import TaskItem from '../Tasks/TaskItem';
+import {loadBulletin} from '../../api'
 
 const {
   width: SCREEN_WIDTH,
   height: SCREEN_HEIGHT,
 } = Dimensions.get('window');
 
-const Tasks=[
-  {
-    title: '搬東西',
-    day: 'Tues',
-    time: '12:00~16:00',
-    fee: '2000'
-  },
-  {
-    title: '買ssssssssssssss咖啡',
-    day: 'Thur',
-    time: '13:00~13:30',
-    fee: '100'
-  },
-  {
-    title: '買咖啡',
-    day: 'Thur',
-    time: '13:00~13:30',
-    fee: '100'
-  },
-  {
-    title: '買咖啡',
-    day: 'Thur',
-    time: '13:00~13:30',
-    fee: '100'
-  },{
-    title: '搬東西',
-    day: 'Tues',
-    time: '12:00~16:00',
-    fee: '2000'
-  }
-];
-
 const HomeScreen = () => {
 
   const navigation = useNavigation();
 
   const [loading, setloaing] = useState(false);
+  const [Tasks, setTasks] = useState([]); 
   const context = useContext(ThemeContext);
   const manager = context.manager;
 
+  useEffect(() => {
+    loadBulletin().then((data) => {setTasks(data)})
+  },[])
+
   console.log(context);
-  console.log(manager);
 
   onNewWorkPress = () => {
     navigation.navigate('NewWork');
@@ -69,7 +42,7 @@ const HomeScreen = () => {
           <FlatList
             scrollEnabled={false}
             contentContainerStyle={{
-              alignSelf: 'flex-start',
+              alignSelf: 'flex-end',
             }}
             numColumns={3}
             showsVerticalScrollIndicator={false}

@@ -26,6 +26,7 @@ export const Detail = (props) => {
   const navigation = useNavigation();
 
   onDetailPress = () => {
+    navigation.navigate("TaskDetail",{task: props.task})
   }
 
   return (

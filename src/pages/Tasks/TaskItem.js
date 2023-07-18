@@ -3,21 +3,6 @@ import {Dimensions, View, Text, StyleSheet} from 'react-native';
 
 import {Detail, Accept} from '../../buttons/buttons';
 
-const Tasksss=[
-  {
-    title: '搬東西',
-    day: 'Tues',
-    time: '12:00~16:00',
-    fee: '2000'
-  },
-  {
-    title: '買咖啡',
-    day: 'Thur',
-    time: '13:00~13:30',
-    fee: '100'
-  }
-];
-
 const {
   width: SCREEN_WIDTH,
   height: SCREEN_HEIGHT,
@@ -30,17 +15,17 @@ const TaskItem = (props) => {
       return (
         <View style={{flex: 1, flexDirection: 'row'}}>
           <View style={styles.button}>
-            <Detail/>
+            <Detail task={props.task}/>
           </View>
           <View style={styles.button}>
-            <Accept/>
+            <Accept task={props.task}/>
           </View>
         </View>
       );
     }else if(props.page=='Tasks'){
       return (
         <View style={styles.button}>
-          <Detail/>
+          <Detail task={props.task}/>
         </View>
       );
     }
@@ -54,7 +39,7 @@ const TaskItem = (props) => {
       <View style={styles.body}>
         <Text>星期:{props.task.day}</Text>
         <Text>時間:{props.task.time}</Text>
-        <Text>費用:{props.task.fee}</Text>
+        <Text>費用:{props.task.reward}</Text>
         {buttons()}
       </View>
     </View>
