@@ -13,7 +13,7 @@ const {
   height: SCREEN_HEIGHT,
 } = Dimensions.get('window');
 
-const HomeScreen = () => {
+const Bulletin = () => {
 
   const navigation = useNavigation();
 
@@ -66,7 +66,7 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default Bulletin;
 
 const styles = StyleSheet.create({
   spinnerTextStyle: {
