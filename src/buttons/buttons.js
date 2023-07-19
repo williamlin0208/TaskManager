@@ -62,12 +62,14 @@ const styles = StyleSheet.create({
   detail: {
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 2,
     borderRadius: 5,
     backgroundColor: '#ffffff'
   },
   accept:{
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 2,
     borderRadius: 5,
     backgroundColor: '#ffffff'
   }
