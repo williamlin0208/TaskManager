@@ -1,7 +1,7 @@
 import React,{useState, useEffect, useContext} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+// import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 
 import {Back} from '../../buttons/buttons'
@@ -44,13 +44,13 @@ const NewWork = () => {
           <TouchableOpacity onPress={() => {setPickerEndVisibility(true)}}>
             <Text>End Time: {endTime.toLocaleString()}</Text>
           </TouchableOpacity>
-          <DateTimePickerModal  isVisible={pickerEndVisibility}
+          {/* <DateTimePickerModal  isVisible={pickerEndVisibility}
                                 mode='datetime'
                                 date={endTime}
                                 onConfirm={(time) => {setEndTime(time); setPickerEndVisibility(false)}}
                                 onCancel={() => {setPickerEndVisibility(false)}}
                                 minimumDate={new Date()}
-                                textColor='black' />
+                                textColor='black' /> */}
         </View>
         <View style={{flexDirection:'row'}}>
           <Text>Reward: </Text>
