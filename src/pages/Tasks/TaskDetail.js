@@ -5,7 +5,7 @@ import {useNavigation} from '@react-navigation/core';
 
 import {Back, Accept} from '../../Utility/buttons'
 
-const Detail = () => {
+const DetailContent = () => {
   return (
     <View style={styles.detail}>
       <Text style={{fontSize:25, alignSelf:'center', fontWeight:'bold'}}>Description</Text>
@@ -34,7 +34,7 @@ const TaskDetail = ({route}) => {
         <Text style={{fontSize:20, alignSelf:'center'}}>Reward: {task.reward}</Text>
       </View>
 
-      <Detail/>
+      <DetailContent/>
 
       <View style={{flex: 1, alignItems:'center', marginTop: 20}}>
         <TouchableOpacity style={{width:'30%'}}>
