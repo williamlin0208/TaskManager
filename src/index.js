@@ -35,19 +35,7 @@ const Navigation = () => {
 
   return (
       <Tab.Navigator screenOptions={({route})=>(ctm_bar({route}))} initialRouteName="Home">
-        <Tab.Screen name="Home" component={HomeScreen} 
-                                options={() => ({
-                                headerRight: () => 
-                                  <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
-                                    <Image source={require('../assets/settings.png')} style={{maxHeight:25,maxWidth:25,marginEnd:15}}/>
-                                  </TouchableOpacity>
-                                ,
-                                headerLeft: () => 
-                                  <TouchableOpacity onPress={() => navigation.navigate("Notification")}>
-                                    <Image source={require('../assets/bell.png')} style={{maxHeight:25,maxWidth:25,marginStart:15}}/>
-                                  </TouchableOpacity>
-                                })}
-                                  />
+        <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 0, headerShown: false}}/>
         <Tab.Screen name="Tasks" component={Tasks} options={{ tabBarBadge: 0, headerShown: false }}/>
         <Tab.Screen name="Profile" component={Profile} options={{ tabBarBadge: null }}/>
       </Tab.Navigator>
