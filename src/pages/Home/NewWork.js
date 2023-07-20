@@ -1,7 +1,7 @@
 import React,{useState, useEffect, useContext} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
-// import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 
 import {Back} from '../../buttons/buttons'
@@ -19,16 +19,12 @@ const NewWork = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.back}>
-        <Back/>
-      </View>
       <ScrollView contentContainerStyle={{ flex: 1, alignItems:'center'}}>
-        <Text style={{fontSize:25}}>New Work</Text>
-        <View style={{flexDirection:'row'}}>
+        <View style={{flexDirection:'row', marginVertical:30}}>
           <Text>Name: </Text>
           <TextInput style={styles.input} value={title} onChangeText={(text) => {setTitle(text)}}/>
         </View>
-        <View style={{flexDirection:'row'}}>
+        <View style={{flexDirection:'row', marginVertical:30}}>
           <TouchableOpacity onPress={() => {setPickerStartVisibility(true)}}>
             <Text>Start Time: {startTime.toLocaleString()}</Text>
           </TouchableOpacity>
@@ -40,19 +36,19 @@ const NewWork = () => {
                                 minimumDate={new Date()}
                                 textColor='black' />
         </View>
-        <View style={{flexDirection:'row'}}>
+        <View style={{flexDirection:'row', marginVertical:30}}>
           <TouchableOpacity onPress={() => {setPickerEndVisibility(true)}}>
             <Text>End Time: {endTime.toLocaleString()}</Text>
           </TouchableOpacity>
-          {/* <DateTimePickerModal  isVisible={pickerEndVisibility}
+          <DateTimePickerModal  isVisible={pickerEndVisibility}
                                 mode='datetime'
                                 date={endTime}
                                 onConfirm={(time) => {setEndTime(time); setPickerEndVisibility(false)}}
                                 onCancel={() => {setPickerEndVisibility(false)}}
                                 minimumDate={new Date()}
-                                textColor='black' /> */}
+                                textColor='black' />
         </View>
-        <View style={{flexDirection:'row'}}>
+        <View style={{flexDirection:'row', marginVertical:30}}>
           <Text>Reward: </Text>
           <TextInput style={styles.input} 
                      value={reward}

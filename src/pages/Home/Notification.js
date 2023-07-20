@@ -11,9 +11,6 @@ const Notification = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.back}>
-        <Back/>
-      </View>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Notification</Text>
       </View>

@@ -7,9 +7,11 @@ const {
   height: SCREEN_HEIGHT,
 } = Dimensions.get('window');
 
+
 const Profile = () => {
 
   // const navigation=useNavigation();
+
   let Name='William';
 
   return (
