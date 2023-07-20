@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
 
-import {Back, Accept} from '../../buttons/buttons'
+import {Back, Accept} from '../../Utility/buttons'
 
 const TaskDetail = ({route}) => {
 

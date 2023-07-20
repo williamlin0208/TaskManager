@@ -1,7 +1,7 @@
 import React from 'react';
 import {Dimensions, View, Text, StyleSheet} from 'react-native';
 
-import {Detail, Accept} from '../../buttons/buttons';
+import {Detail, Accept} from '../../Utility/buttons';
 
 const {
   width: SCREEN_WIDTH,

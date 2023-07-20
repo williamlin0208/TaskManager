@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
 
-import {Back} from '../../buttons/buttons'
+import {Back} from '../../Utility/buttons'
 
 const Profile = () => {
 
