@@ -5,9 +5,9 @@ import {useNavigation} from '@react-navigation/core';
 
 import {Back} from '../../buttons/buttons'
 
-const Settings = () => {
+const Profile = () => {
 
-  const navigation=useNavigation();
+  // const navigation=useNavigation();
 
   return (
     <View style={styles.container}>
@@ -15,13 +15,13 @@ const Settings = () => {
         <Back/>
       </View>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Settings</Text>
+        <Text>Profile</Text>
       </View>
     </View>
   );
 };
 
-export default Settings;
+export default Profile;
 
 const styles = StyleSheet.create({
   container:{

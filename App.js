@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Text} from 'react-native';
 import {NativeBaseProvider} from "native-base";
+import {NavigationContainer} from '@react-navigation/native';
 
 import Navigation from './src/index';
 
@@ -19,7 +20,9 @@ const App = () => {
   return (
     <ThemeContext.Provider value={{userId:userId, manager:manager}}>
       <NativeBaseProvider>
-        <Navigation/>
+        <NavigationContainer>
+          <Navigation/>
+        </NavigationContainer>
       </NativeBaseProvider>
     </ThemeContext.Provider>
   );

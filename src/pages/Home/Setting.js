@@ -5,23 +5,20 @@ import {useNavigation} from '@react-navigation/core';
 
 import {Back} from '../../buttons/buttons'
 
-const Notification = () => {
+const Settings = () => {
 
   const navigation=useNavigation();
 
   return (
     <View style={styles.container}>
-      <View style={styles.back}>
-        <Back/>
-      </View>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Notification</Text>
+        <Text>Settings</Text>
       </View>
     </View>
   );
 };
 
-export default Notification;
+export default Settings;
 
 const styles = StyleSheet.create({
   container:{
