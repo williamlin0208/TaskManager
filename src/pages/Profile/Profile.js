@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     width: SCREEN_HEIGHT/10,
     margin: SCREEN_HEIGHT/50,
     backgroundColor: '#aaaaaa',
-    borderRadius: '50%'
+    borderRadius: 50
   },
   name: {
     flex: 1,

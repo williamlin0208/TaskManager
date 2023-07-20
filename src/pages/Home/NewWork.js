@@ -1,7 +1,7 @@
 import React,{useState, useEffect, useContext} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+// import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 
 import {Back} from '../../buttons/buttons'
