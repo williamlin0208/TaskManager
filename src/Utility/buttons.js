@@ -42,11 +42,8 @@ export const Accept = (props) => {
 
   const navigation = useNavigation();
 
-  onDetailPress = () => {
-  }
-
   return (
-    <TouchableOpacity onPress={onDetailPress}>
+    <TouchableOpacity onPress={props.onAcceptTaskPress}>
       <View style={styles.detail}>
         <Text>接受</Text>
       </View>
