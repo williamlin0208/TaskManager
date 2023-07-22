@@ -23,9 +23,9 @@ const Salary = (props) => {
   
   const ModeTab = (props) => {
     modestyle={fontWeight: 'normal', color: '#333333'};
-    if(props.period=='daily'&&props.mode=='day') modestyle={fontWeight: 'bold', color: 'black',};
-    if(props.period=='weekly'&&props.mode=='week')  modestyle={fontWeight: 'bold', color: 'black',};
-    if(props.period=='monthly'&&props.mode=='month') modestyle={fontWeight: 'bold', color: 'black',};
+    if(props.period=='Daily'&&props.mode=='day') modestyle={fontWeight: 'bold', color: 'black',};
+    if(props.period=='Weekly'&&props.mode=='week')  modestyle={fontWeight: 'bold', color: 'black',};
+    if(props.period=='Monthly'&&props.mode=='month') modestyle={fontWeight: 'bold', color: 'black',};
 
     return (
       <View style={{flex:1}}>
@@ -42,11 +42,11 @@ const Salary = (props) => {
   return (
     <View style={styles.salary}>
       <View style={{flexDirection: 'row'}}>
-        <ModeTab period={'daily'} mode={props.mode} onPress={onDailyPress}/>
+        <ModeTab period={'Daily'} mode={props.mode} onPress={onDailyPress}/>
         <View style={styles.cutlineV}></View>
-        <ModeTab period={'weekly'} mode={props.mode} onPress={onWeeklyPress}/>
+        <ModeTab period={'Weekly'} mode={props.mode} onPress={onWeeklyPress}/>
         <View style={styles.cutlineV}></View>
-        <ModeTab period={'monthly'} mode={props.mode} onPress={onMonthlyPress}/>
+        <ModeTab period={'Monthly'} mode={props.mode} onPress={onMonthlyPress}/>
       </View>
 
       <View style={styles.cutlineH}></View>
@@ -66,7 +66,7 @@ const Salary = (props) => {
       </View>
 
       <View style={{alignItems: 'flex-end', marginTop: 5}}>
-        <Text style={{fontWeight: 'bold'}}>GOAL:{props.goal}</Text>
+        <Text style={{fontWeight: 'bold'}}>GOAL:{props.goal.toFixed(2)}</Text>
       </View>
     </View>
   );
@@ -88,13 +88,25 @@ const Tool = (props) => {
 
 const Profile = () => {
 
+  let moment = require('moment');
+  let startOfMonthM=moment().startOf('month');
+  let endOfMonthM=moment().endOf('month');
+
+  dayOfThisMonth=1+endOfMonthM.diff(startOfMonthM, 'days');
+
   const [mode, setMode] = useState('week');
+  const [goalDays, setGoalDays] =useState(7);
+
   let name='William';
-  let monthly_goal=20000;
+  let weeklyGoal=20000;
+  let goal=weeklyGoal*(goalDays/7);
   let salary=8000;
 
   onModeChange = (newmode) => {
-    setMode(newmode)
+    setMode(newmode);
+    if(newmode=='day') setGoalDays(1);
+    else if(newmode=='week') setGoalDays(7);
+    else if(newmode=='month') setGoalDays(dayOfThisMonth);
   }
   onLogoutPress = () => {
 
@@ -119,7 +131,7 @@ const Profile = () => {
           </TouchableOpacity>
         </View>
 
-        <Salary salary={salary} mode={mode} goal={monthly_goal} onModeChange={onModeChange}/>
+        <Salary salary={salary} mode={mode} goal={goal} onModeChange={onModeChange}/>
 
         <Tool title='Acommplished Tasks' onToolPress={onAcceptedTasksPress}/>
         <Tool title='Leave System' onToolPress={onLeaveSystemPress}/>
@@ -171,7 +183,7 @@ const styles = StyleSheet.create({
     height: 30,
     alignItems: 'center',
     paddingHorizontal: 12,
-    borderWidth: 2,
+    borderWidth: 1.5,
     borderRadius: 20,
     borderColor: '#cccccc'
   },

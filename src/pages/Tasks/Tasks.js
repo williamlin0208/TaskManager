@@ -1,6 +1,5 @@
 import { Row } from 'native-base';
 import React, {useState} from 'react';
-import moment from "moment"
 import {Dimensions, View, Text, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
 import {Icon} from '@rneui/themed';
 
