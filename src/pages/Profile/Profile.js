@@ -22,10 +22,10 @@ const Salary = (props) => {
   }
   
   const ModeTab = (props) => {
+    const corres={'Daily':'day', 'Weekly':'week', 'Monthly':'month'};
+
     modestyle={fontWeight: 'normal', color: '#333333'};
-    if(props.period=='Daily'&&props.mode=='day') modestyle={fontWeight: 'bold', color: 'black',};
-    if(props.period=='Weekly'&&props.mode=='week')  modestyle={fontWeight: 'bold', color: 'black',};
-    if(props.period=='Monthly'&&props.mode=='month') modestyle={fontWeight: 'bold', color: 'black',};
+    if(corres[props.period]==props.mode) modestyle={fontWeight: 'bold', color: 'black',};
 
     return (
       <View style={{flex:1}}>
@@ -104,9 +104,11 @@ const Profile = () => {
 
   onModeChange = (newmode) => {
     setMode(newmode);
-    if(newmode=='day') setGoalDays(1);
-    else if(newmode=='week') setGoalDays(7);
-    else if(newmode=='month') setGoalDays(dayOfThisMonth);
+    const corres={'day': 1, 'week': 7, 'month': dayOfThisMonth};
+    setGoalDays(corres[newmode]);
+  }
+  onSettingPress = () => {
+    
   }
   onLogoutPress = () => {
 
@@ -126,14 +128,17 @@ const Profile = () => {
           <View style={styles.name}>
             <Text style={{fontSize: 20}}>{name}</Text>
           </View>
+          <TouchableOpacity onPress={onSettingPress}>
+            <Icon name='settings' size={35} color='grey' style={styles.funtion}/>
+          </TouchableOpacity>
           <TouchableOpacity onPress={onLogoutPress}>
-            <Icon name='logout'/>
+            <Icon name='logout' size={35} color='grey' style={styles.funtion}/>
           </TouchableOpacity>
         </View>
 
         <Salary salary={salary} mode={mode} goal={goal} onModeChange={onModeChange}/>
 
-        <Tool title='Acommplished Tasks' onToolPress={onAcceptedTasksPress}/>
+        <Tool title='Accepted Tasks' onToolPress={onAcceptedTasksPress}/>
         <Tool title='Leave System' onToolPress={onLeaveSystemPress}/>
       </ScrollView>
     </View>
@@ -153,6 +158,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  funtion: {
+    padding: 5
   },
   img:{
     height: SCREEN_HEIGHT/10,
