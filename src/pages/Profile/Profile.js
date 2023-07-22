@@ -49,9 +49,7 @@ const Tool = (props) => {
 }
 
 const Profile = () => {
-
-  // const navigation=useNavigation();
-
+  
   let name='William';
   let mode='week';
   let weekly_goal=20000;
