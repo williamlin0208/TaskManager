@@ -32,7 +32,7 @@ export const Detail = (props) => {
   return (
     <TouchableOpacity onPress={onDetailPress}>
       <View style={styles.detail}>
-        <Text>詳情</Text>
+        <Text>內容</Text>
       </View>
     </TouchableOpacity>
   );
@@ -45,7 +45,7 @@ export const Accept = (props) => {
   return (
     <TouchableOpacity onPress={props.onAcceptTaskPress}>
       <View style={styles.detail}>
-        <Text>接受</Text>
+        <Text>接取</Text>
       </View>
     </TouchableOpacity>
   );

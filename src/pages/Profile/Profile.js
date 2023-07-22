@@ -1,13 +1,79 @@
-import React, {useState}from 'react';
+import React, {useState, useContext}from 'react';
 import {Dimensions, View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import {Icon} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/core';
-import { Back } from '../../Utility/buttons';
+
+import {ThemeContext} from '../../../Shared';
 
 const {
   width: SCREEN_WIDTH,
   height: SCREEN_HEIGHT,
 } = Dimensions.get('window');
+
+const Profile = () => {
+
+  const context = useContext(ThemeContext);
+  const manager = context.manager;
+
+  let moment = require('moment');
+  let startOfMonthM=moment().startOf('month');
+  let endOfMonthM=moment().endOf('month');
+
+  dayOfThisMonth=1+endOfMonthM.diff(startOfMonthM, 'days');
+
+  const [mode, setMode] = useState('week');
+  const [goalDays, setGoalDays] =useState(7);
+
+  let name='William';
+  let weeklyGoal=20000;
+  let goal=weeklyGoal*(goalDays/7);
+  let salary=8000;
+
+  onModeChange = (newmode) => {
+    setMode(newmode);
+    const corres={'day': 1, 'week': 7, 'month': dayOfThisMonth};
+    setGoalDays(corres[newmode]);
+  }
+  onSettingPress = () => {
+    
+  }
+  onLogoutPress = () => {
+
+  }
+  onLeaveSystemPress = () => {
+
+  }
+  onAcceptedTasksPress = () => {
+
+  }
+
+  return (
+    <View style={styles.container}>
+      <ScrollView>
+        <View style={styles.header}>
+          <View style={styles.img}></View>
+          <View style={styles.name}>
+            <Text style={{fontSize: 12, color: 'grey'}}>{manager?'Manager':'Staff'}</Text>
+            <Text style={{fontSize: 20}}>{name}</Text>
+          </View>
+          <TouchableOpacity onPress={onSettingPress}>
+            <Icon name='settings' size={35} color='grey' style={styles.funtion}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onLogoutPress}>
+            <Icon name='logout' size={35} color='grey' style={styles.funtion}/>
+          </TouchableOpacity>
+        </View>
+
+        <Salary salary={salary} mode={mode} goal={goal} onModeChange={onModeChange}/>
+
+        <Tool title='Accepted Tasks' onToolPress={onAcceptedTasksPress}/>
+        <Tool title='Leave System' onToolPress={onLeaveSystemPress}/>
+      </ScrollView>
+    </View>
+  );
+};
+
+export default Profile;
 
 const Salary = (props) => {
 
@@ -85,67 +151,6 @@ const Tool = (props) => {
     </TouchableOpacity>
   );
 }
-
-const Profile = () => {
-
-  let moment = require('moment');
-  let startOfMonthM=moment().startOf('month');
-  let endOfMonthM=moment().endOf('month');
-
-  dayOfThisMonth=1+endOfMonthM.diff(startOfMonthM, 'days');
-
-  const [mode, setMode] = useState('week');
-  const [goalDays, setGoalDays] =useState(7);
-
-  let name='William';
-  let weeklyGoal=20000;
-  let goal=weeklyGoal*(goalDays/7);
-  let salary=8000;
-
-  onModeChange = (newmode) => {
-    setMode(newmode);
-    const corres={'day': 1, 'week': 7, 'month': dayOfThisMonth};
-    setGoalDays(corres[newmode]);
-  }
-  onSettingPress = () => {
-    
-  }
-  onLogoutPress = () => {
-
-  }
-  onLeaveSystemPress = () => {
-
-  }
-  onAcceptedTasksPress = () => {
-
-  }
-
-  return (
-    <View style={styles.container}>
-      <ScrollView>
-        <View style={styles.header}>
-          <View style={styles.img}></View>
-          <View style={styles.name}>
-            <Text style={{fontSize: 20}}>{name}</Text>
-          </View>
-          <TouchableOpacity onPress={onSettingPress}>
-            <Icon name='settings' size={35} color='grey' style={styles.funtion}/>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={onLogoutPress}>
-            <Icon name='logout' size={35} color='grey' style={styles.funtion}/>
-          </TouchableOpacity>
-        </View>
-
-        <Salary salary={salary} mode={mode} goal={goal} onModeChange={onModeChange}/>
-
-        <Tool title='Accepted Tasks' onToolPress={onAcceptedTasksPress}/>
-        <Tool title='Leave System' onToolPress={onLeaveSystemPress}/>
-      </ScrollView>
-    </View>
-  );
-};
-
-export default Profile;
 
 const styles = StyleSheet.create({
   container:{

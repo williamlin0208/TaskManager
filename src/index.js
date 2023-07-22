@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import { Image, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {useNavigation} from '@react-navigation/core';
