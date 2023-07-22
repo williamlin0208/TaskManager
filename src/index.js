@@ -15,9 +15,9 @@ ctm_bar = ({ route }) => ({
     let iconName;
 
     if (route.name === 'Home') {
-      iconName = focused ? 'ios-information-circle' : 'ios-information-circle-outline';
+      iconName = focused ? 'home' : 'home-outline';
     }else if (route.name === 'Tasks'){
-      iconName = focused ? 'ios-list' : 'ios-list-outline';
+      iconName = focused ? 'checkmark' : 'checkmark-outline';
     }else if (route.name === 'Profile') {
       iconName = focused ? 'person' : 'person-outline';
     }

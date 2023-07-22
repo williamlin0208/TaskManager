@@ -10,7 +10,6 @@ const {
 } = Dimensions.get('window');
 
 const Salary = (props) => {
-  console.log(props);
   unacheived=props.goal-props.salary;
   return (
     <View style={styles.salary}>
@@ -35,6 +34,20 @@ const Salary = (props) => {
   );
 }
 
+const Tool = (props) => {
+  onToolPress = () =>{
+    props.onToolPress();
+  };
+
+  return (
+    <TouchableOpacity onPress={onToolPress}>
+      <View style={styles.tool}>
+        <Text style={styles.tooltitle}>{props.title}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+}
+
 const Profile = () => {
 
   // const navigation=useNavigation();
@@ -43,6 +56,16 @@ const Profile = () => {
   let mode='week';
   let weekly_goal=20000;
   let salary=8000;
+  
+  onLogoutPress = () => {
+
+  }
+  onLeaveSystemPress = () => {
+
+  }
+  onAcceptedTasksPress = () => {
+
+  }
 
   return (
     <View style={styles.container}>
@@ -52,13 +75,15 @@ const Profile = () => {
           <View style={styles.name}>
             <Text style={{fontSize: 20}}>{name}</Text>
           </View>
+          <TouchableOpacity onPress={onLogoutPress}>
+            <Icon name='logout'/>
+          </TouchableOpacity>
         </View>
 
         <Salary salary={salary} mode={mode} goal={weekly_goal}/>
-        
-        <View style={{ flex: 5, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>Profile</Text>
-        </View>
+
+        <Tool title='Acommplished Tasks' onToolPress={onAcceptedTasksPress}/>
+        <Tool title='Leave System' onToolPress={onLeaveSystemPress}/>
       </ScrollView>
     </View>
   );
@@ -86,7 +111,7 @@ const styles = StyleSheet.create({
   },
   name: {
     flex: 1,
-    paddingLeft: 15,
+    paddingLeft: 10,
     justifyContent: 'center',
   },
   salary: {
@@ -109,5 +134,19 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 20,
     borderColor: '#cccccc'
+  },
+  tool: {
+    height: 50,
+    padding: 10,
+    marginTop: 10,
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0'
+  },
+  tooltitle: {
+    color: '#444444',
+    fontSize: 15,
+    fontWeight: 'bold',
   }
 });
