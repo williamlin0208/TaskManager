@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -8,7 +8,7 @@ import NewWork from './NewWork';
 import Notification, { NotificationDatail } from './Notification';
 import Settings from './Setting';
 import TaskDetail from '../Tasks/TaskDetail';
-import { TouchableOpacity, Image } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 

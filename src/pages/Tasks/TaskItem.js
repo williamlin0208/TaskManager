@@ -10,6 +10,10 @@ const {
 
 const TaskItem = (props) => {
 
+  onAcceptTaskPress = () => {
+    props.onAcceptTaskPress(props.task)
+  }
+
   buttons=()=>{
     if(props.page=='Home'){
       return (
@@ -18,7 +22,7 @@ const TaskItem = (props) => {
             <Detail task={props.task}/>
           </View>
           <View style={styles.button}>
-            <Accept task={props.task}/>
+            <Accept task={props.task} onAcceptTaskPress={onAcceptTaskPress}/>
           </View>
         </View>
       );
@@ -32,17 +36,30 @@ const TaskItem = (props) => {
   }
 
   return (
-    <View style={styles.block}>
-      <View style={styles.title}>
-        <Text>{props.task.title}</Text>
+    props.page == 'Home' ? 
+      <View style={styles.block}>
+        <View style={styles.title}>
+          <Text>{props.task.title}</Text>
+        </View>
+        <View style={styles.body}>
+          <Text>日期:{props.task.startTime.split(' ')[0].split('-')[1]}-{props.task.startTime.split(' ')[0].split('-')[2]}</Text>
+          <Text>時間:{props.task.startTime.split(' ')[1].split(':')[0]}:{props.task.startTime.split(' ')[1].split(':')[1]}~{props.task.endTime.split(' ')[1].split(':')[0]}:{props.task.endTime.split(' ')[1].split(':')[1]}</Text>
+          <Text>費用:{props.task.reward}</Text>
+          {buttons()}
+        </View>
       </View>
-      <View style={styles.body}>
-        <Text>星期:{props.task.day}</Text>
-        <Text>時間:{props.task.time}</Text>
-        <Text>費用:{props.task.reward}</Text>
-        {buttons()}
+    :
+      <View style={styles.block}>
+        <View style={styles.title}>
+          <Text>{props.task.title}</Text>
+        </View>
+        <View style={styles.body}>
+          <Text>星期:{props.task.day}</Text>
+          <Text>時間:{props.task.time}</Text>
+          <Text>費用:{props.task.reward}</Text>
+          {buttons()}
+        </View>
       </View>
-    </View>
   );
 };
 

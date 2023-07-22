@@ -1,7 +1,7 @@
-import React,{useState, useEffect, useContext} from 'react';
+import React,{useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
-// import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import { PostButton } from '../../Utility/buttons';
 import { LoadingBar } from '../../Utility/utility';
@@ -75,12 +75,12 @@ const NewWork = () => {
           <TouchableOpacity onPress={() => {setPickerStartVisibility(true)}}>
             <Text style={{color:'#007AFF'}}>{startTime.toLocaleString()}</Text>
           </TouchableOpacity>
-          {/* <DateTimePickerModal  isVisible={pickerStartVisibility}
+          <DateTimePickerModal  isVisible={pickerStartVisibility}
                                 mode='datetime'
                                 date={startTime}
                                 onConfirm={(time) => {setStartTime(time); setPickerStartVisibility(false)}}
                                 onCancel={() => {setPickerStartVisibility(false)}}
-                                textColor='#007AFF' /> */}
+                                textColor='#007AFF' />
         </View>
 
         <View style={{flexDirection:'row', marginVertical:30}}>
@@ -88,12 +88,12 @@ const NewWork = () => {
           <TouchableOpacity onPress={() => {setPickerEndVisibility(true)}}>
             <Text style={{color:'#007AFF'}}>{endTime.toLocaleString()}</Text>
           </TouchableOpacity>
-          {/* <DateTimePickerModal  isVisible={pickerEndVisibility}
+          <DateTimePickerModal  isVisible={pickerEndVisibility}
                                 mode='datetime'
                                 date={endTime}
                                 onConfirm={(time) => {setEndTime(time); setPickerEndVisibility(false)}}
                                 onCancel={() => {setPickerEndVisibility(false)}}
-                                textColor='#007AFF' /> */}
+                                textColor='#007AFF' />
         </View>
         
         <View style={{flexDirection:'row', marginVertical:30}}>
