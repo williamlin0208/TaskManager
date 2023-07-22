@@ -14,11 +14,11 @@ ctm_bar = ({ route }) => ({
   tabBarIcon: ({ focused, color, size }) => {
     let iconName;
 
-    if (route.name === 'Bulletin') {
+    if (route.name === 'Home') {
       iconName = focused ? 'ios-information-circle' : 'ios-information-circle-outline';
     }else if (route.name === 'Tasks'){
       iconName = focused ? 'ios-list' : 'ios-list-outline';
-    }else if (route.name === 'Settings') {
+    }else if (route.name === 'Profile') {
       iconName = focused ? 'settings' : 'settings-outline';
     }
 

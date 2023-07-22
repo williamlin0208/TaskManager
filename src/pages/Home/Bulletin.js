@@ -1,12 +1,12 @@
 import React,{useState, useEffect, useContext} from 'react';
 import {Dimensions, View, Text, StyleSheet, ScrollView, FlatList} from 'react-native';
 import {FAB} from '@rneui/themed';
-import {Spinner} from 'native-base';
 import {useNavigation} from '@react-navigation/core';
 
 import {ThemeContext} from '../../../Shared';
 import TaskItem from '../Tasks/TaskItem';
-import {loadBulletin} from '../../api'
+import {accept_work, loadBulletin} from '../../api'
+import { LoadingBar } from '../../Utility/utility';
 
 const {
   width: SCREEN_WIDTH,
@@ -17,7 +17,7 @@ const Bulletin = () => {
 
   const navigation = useNavigation();
 
-  const [loading, setloaing] = useState(false);
+  const [isLoading, setIsLoaing] = useState(false);
   const [Tasks, setTasks] = useState([]); 
   const context = useContext(ThemeContext);
   const manager = context.manager;
@@ -32,37 +32,47 @@ const Bulletin = () => {
     navigation.navigate('NewWork');
   }
 
+  onAcceptTaskPress = (task) => {
+    setIsLoaing(true);
+    accept_work(task).then((res) => {
+      setIsLoaing(false);
+    });
+  }
+
   return (
-    <View style={{ flex: 1}}>
-      <View style={{flex: 1}}> 
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingVertical: 10, padding: 3}}>
-          <FlatList
-            scrollEnabled={false}
-            contentContainerStyle={{
-              alignSelf: 'flex-end',
-            }}
-            numColumns={3}
+    isLoading ? 
+      <LoadingBar />
+    :
+      <View style={{ flex: 1}}>
+        <View style={{flex: 1}}> 
+          <ScrollView
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
-            data={Tasks}
-            renderItem={({ item }) => { return <View style={styles.task}><TaskItem page='Home' task={item}/></View>; }}
+            contentContainerStyle={{ paddingVertical: 10, padding: 3}}>
+            <FlatList
+              scrollEnabled={false}
+              contentContainerStyle={{
+                alignSelf: 'flex-end',
+              }}
+              numColumns={3}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              data={Tasks}
+              renderItem={({ item }) => { return <View style={styles.task}><TaskItem page='Home' task={item} onAcceptTaskPress={onAcceptTaskPress}/></View>; }}
+            />
+          </ScrollView>
+        </View>
+        <View style={styles.fab}>
+          <FAB
+            visible={manager?true:false}
+            icon={{ name: 'add', color: 'white' }}
+            color="#88baec"
+            size='large'
+            onPress={onNewWorkPress}
           />
-        </ScrollView>
+          {manager?<Text style={{marginTop: 10, color: '#444444'}}>Add New Task</Text>:""}   
+        </View>
       </View>
-      <View style={styles.fab}>
-        <FAB
-          visible={manager?true:false}
-          icon={{ name: 'add', color: 'white' }}
-          color="#88baec"
-          size='large'
-          onPress={onNewWorkPress}
-        />
-        {manager?<Text style={{marginTop: 10, color: '#444444'}}>Add New Task</Text>:""}   
-      </View>
-    </View>
   );
 };
 
@@ -85,5 +95,3 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 });
-
-//{loading?<Spinner/>:''}
