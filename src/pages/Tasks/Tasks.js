@@ -65,7 +65,8 @@ export default Tasks;
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    backgroundColor: '#fafafa'
   },
   header:{
     flex: 1,

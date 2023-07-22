@@ -43,7 +43,7 @@ const Bulletin = () => {
     isLoading ? 
       <LoadingBar />
     :
-      <View style={{ flex: 1}}>
+      <View style={{ flex: 1, backgroundColor: '#fafafa'}}>
         <View style={{flex: 1}}> 
           <ScrollView
             showsVerticalScrollIndicator={false}

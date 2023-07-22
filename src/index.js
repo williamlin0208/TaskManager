@@ -19,7 +19,7 @@ ctm_bar = ({ route }) => ({
     }else if (route.name === 'Tasks'){
       iconName = focused ? 'ios-list' : 'ios-list-outline';
     }else if (route.name === 'Profile') {
-      iconName = focused ? 'settings' : 'settings-outline';
+      iconName = focused ? 'person' : 'person-outline';
     }
 
     return <Ionicons name={iconName} size={size} color={color} />;
