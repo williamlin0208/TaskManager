@@ -1,5 +1,6 @@
 import { Row } from 'native-base';
-import React from 'react';
+import React, {useState} from 'react';
+import moment from "moment"
 import {Dimensions, View, Text, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
 import {Icon} from '@rneui/themed';
 
@@ -13,38 +14,62 @@ const {
 h1Size=SCREEN_HEIGHT/25;
 TaskWidth=SCREEN_WIDTH/3;
 
-const NextPage = () => {
+const NextPage = (props) => {
+  const onNextPress = () => {
+    props.onNextPress();
+  };
+
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onNextPress}>
       <Icon size={40} name='arrow-right' color="white"/>
     </TouchableOpacity>
   );
 }
 
-const PrevPage = () => {
+const PrevPage = (props) => {
+  const onPrevPress = () => {
+    props.onPrevPress();
+  };
+
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPrevPress}>
       <Icon size={40} name='arrow-left' color="white"/>
     </TouchableOpacity>
   );
 }
 
+//.format('YYYY/MM/DD d HH:mm:ss');
 const Tasks = () => {
-  var moment = require('moment');
-  moment().format();
-  const today = moment();
-  console.log(today);
+
+  const [offset, setOffset] = useState(0);
+
+  let moment = require('moment');
+  let startOfWeekM=moment().startOf('week');
+  let endOfWeekM=moment().endOf('week');
+
+  const onPrevPress = () => {
+    setOffset((prevState) => (prevState-1));
+  };
+  const onNextPress = () => {
+    setOffset((prevState) => (prevState+1));
+  };
 
   const Days=['Sun','Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];
 
   return (
     <View style={styles.container}>
+      <View style={{flex: 0.3, backgroundColor: '#88baec', paddingTop: 40, justifyContent: 'center', alignItems: 'center'}}>
+        <Text style={{color: 'white', fontFamily: 'monospace', fontWeight: '500'}}>
+          {startOfWeekM.add(offset*7, 'days').format('YYYYY/MM/DD')}~{endOfWeekM.add(offset*7, 'days').format('YYYY/MM/DD')}
+        </Text>
+      </View>
       <View style={styles.header}>
-        <PrevPage/>
+        <PrevPage onPrevPress={onPrevPress}/>
         <View style={{flex:1, alignItems: 'center'}}>
+          
           <Text style={styles.h1}>Weekly Tasks</Text>
         </View>
-        <NextPage/>
+        <NextPage onNextPress={onNextPress}/>
       </View>
       <View style={styles.body}>
         <ScrollView horizontal={true}>
@@ -94,7 +119,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     paddingHorizontal: 10,
-    paddingTop: 40,
     alignItems: 'center',
     backgroundColor: '#88baec'
   },

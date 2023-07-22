@@ -108,6 +108,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderWidth: 2,
     borderRadius: 20,
-    borderColor: '#dddddd'
+    borderColor: '#cccccc'
   }
 });
