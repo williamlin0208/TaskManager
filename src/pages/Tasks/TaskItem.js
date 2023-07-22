@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   block:{
     marginTop: 5,
     padding: 5,
-    backgroundColor: '#afbffe',
+    backgroundColor: '#BADBFF',
     width: SCREEN_WIDTH/3-10,
   },
   title:{

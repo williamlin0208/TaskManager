@@ -99,7 +99,7 @@ export const NotificationFail = ({onFailPress}) => {
 
 const styles = StyleSheet.create({
   back: {
-    borderRadius: 1000000,
+    borderRadius: 100,
     backgroundColor: '#88baec'
   },
   detail: {

@@ -1,6 +1,8 @@
 import React from 'react';
-import {Dimensions, View, Text, Icon, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import {Dimensions, View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import {Icon} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/core';
+import { Back } from '../../Utility/buttons';
 
 const {
   width: SCREEN_WIDTH,
@@ -12,8 +14,9 @@ const Salary = (props) => {
   unacheived=props.goal-props.salary;
   return (
     <View style={styles.salary}>
-      <Text style={{fontSize: 20}}>This {props.mode}, you have got</Text>
-      <View>
+      <Text style={{fontSize: 20}}>This {props.mode}, you've got</Text>
+      <View style={{flexDirection: 'row'}}>
+        <Icon size={40} name='attach-money'/>
         <Text style={styles.money}>{props.salary}NTD</Text>
       </View>
 
@@ -21,7 +24,7 @@ const Salary = (props) => {
         <View style={styles.progressbar}>
           <View style={{flex: props.salary, height: 12,borderRadius: 100, backgroundColor: '#88baec'}}></View>
           <View style={{flex: unacheived}}></View>
-          <Text style={{marginLeft: 5,fontWeight: 'bold'}}>{(props.salary/props.goal*100).toFixed(2)}%</Text>
+          <Text style={{fontWeight: 'bold', color: '#555555'}}>{(props.salary/props.goal*100).toFixed(2)}%</Text>
         </View>
       </View>
 

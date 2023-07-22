@@ -1,6 +1,7 @@
 import { Row } from 'native-base';
 import React from 'react';
-import {Dimensions, View, Text, StyleSheet, ScrollView} from 'react-native';
+import {Dimensions, View, Text, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
+import {Icon} from '@rneui/themed';
 
 import TaskList from './TaskList';
 
@@ -9,20 +10,41 @@ const {
   height: SCREEN_HEIGHT,
 } = Dimensions.get('window');
 
-// console.log(SCREEN_WIDTH, SCREEN_HEIGHT);
-
 h1Size=SCREEN_HEIGHT/25;
 TaskWidth=SCREEN_WIDTH/3;
 
+const NextPage = () => {
+  return (
+    <TouchableOpacity>
+      <Icon size={40} name='arrow-right' color="white"/>
+    </TouchableOpacity>
+  );
+}
+
+const PrevPage = () => {
+  return (
+    <TouchableOpacity>
+      <Icon size={40} name='arrow-left' color="white"/>
+    </TouchableOpacity>
+  );
+}
+
 const Tasks = () => {
+  var moment = require('moment');
+  moment().format();
+  const today = moment();
+  console.log(today);
+
   const Days=['Sun','Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+        <PrevPage/>
+        <View style={{flex:1, alignItems: 'center'}}>
           <Text style={styles.h1}>Weekly Tasks</Text>
         </View>
+        <NextPage/>
       </View>
       <View style={styles.body}>
         <ScrollView horizontal={true}>
@@ -70,7 +92,10 @@ const styles = StyleSheet.create({
   },
   header:{
     flex: 1,
+    flexDirection: 'row',
+    paddingHorizontal: 10,
     paddingTop: 40,
+    alignItems: 'center',
     backgroundColor: '#88baec'
   },
   h1:{
