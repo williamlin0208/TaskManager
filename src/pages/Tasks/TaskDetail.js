@@ -8,8 +8,8 @@ import {Back, Accept} from '../../Utility/buttons'
 const DetailContent = () => {
   return (
     <View style={styles.detail}>
-      <Text style={{fontSize:25, alignSelf:'center', fontWeight:'bold'}}>Description</Text>
-      <View style={{flex: 1, backgroundColor: '#d1d1d1', marginTop: 10}}>
+      <Text style={{fontSize:25, alignSelf:'center', fontWeight:'bold'}}>Detail</Text>
+      <View style={{flex: 1, backgroundColor: '#d1d1d1', marginTop: 10, borderRadius: 5}}>
       </View>
     </View>
   );
@@ -22,10 +22,6 @@ const TaskDetail = ({route}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.back}>
-        <Back/>
-      </View>
-      
       <View style={{ flex: 2, flexDirection:'column', marginHorizontal:30, marginTop:30 }}>
         <Text style={{fontSize:25, alignSelf:'center', fontWeight:'bold'}}>Description</Text>
         <Text style={{fontSize:20, alignSelf:'center'}}>Title: {task.title}</Text>
@@ -60,7 +56,6 @@ const styles = StyleSheet.create({
   },
   detail: {
     flex: 3,
-    borderRadius: 5,
     marginHorizontal:50,
   }
 });
