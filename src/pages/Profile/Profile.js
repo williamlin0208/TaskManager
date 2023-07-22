@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState}from 'react';
 import {Dimensions, View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import {Icon} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/core';
@@ -10,10 +10,48 @@ const {
 } = Dimensions.get('window');
 
 const Salary = (props) => {
+
+  onDailyPress = () => {
+    props.onModeChange('day');
+  }
+  onWeeklyPress = () => {
+    props.onModeChange('week')
+  }
+  onMonthlyPress = () => {
+    props.onModeChange('month')
+  }
+  
+  const ModeTab = (props) => {
+    modestyle={fontWeight: 'normal', color: '#333333'};
+    if(props.period=='daily'&&props.mode=='day') modestyle={fontWeight: 'bold', color: 'black',};
+    if(props.period=='weekly'&&props.mode=='week')  modestyle={fontWeight: 'bold', color: 'black',};
+    if(props.period=='monthly'&&props.mode=='month') modestyle={fontWeight: 'bold', color: 'black',};
+
+    return (
+      <View style={{flex:1}}>
+        <TouchableOpacity onPress={props.onPress}>
+          <View style={styles.modetab}>
+            <Text style={[styles.modetitle,modestyle]}>{props.period}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
   unacheived=props.goal-props.salary;
   return (
     <View style={styles.salary}>
-      <Text style={{fontSize: 20}}>This {props.mode}, you've got</Text>
+      <View style={{flexDirection: 'row'}}>
+        <ModeTab period={'daily'} mode={props.mode} onPress={onDailyPress}/>
+        <View style={styles.cutlineV}></View>
+        <ModeTab period={'weekly'} mode={props.mode} onPress={onWeeklyPress}/>
+        <View style={styles.cutlineV}></View>
+        <ModeTab period={'monthly'} mode={props.mode} onPress={onMonthlyPress}/>
+      </View>
+
+      <View style={styles.cutlineH}></View>
+
+      <Text style={{fontSize: 20, marginTop: 5}}>This {props.mode}, you've got</Text>
       <View style={{flexDirection: 'row'}}>
         <Icon size={40} name='attach-money'/>
         <Text style={styles.money}>{props.salary}NTD</Text>
@@ -49,12 +87,15 @@ const Tool = (props) => {
 }
 
 const Profile = () => {
-  
+
+  const [mode, setMode] = useState('week');
   let name='William';
-  let mode='week';
-  let weekly_goal=20000;
+  let monthly_goal=20000;
   let salary=8000;
-  
+
+  onModeChange = (newmode) => {
+    setMode(newmode)
+  }
   onLogoutPress = () => {
 
   }
@@ -78,7 +119,7 @@ const Profile = () => {
           </TouchableOpacity>
         </View>
 
-        <Salary salary={salary} mode={mode} goal={weekly_goal}/>
+        <Salary salary={salary} mode={mode} goal={monthly_goal} onModeChange={onModeChange}/>
 
         <Tool title='Acommplished Tasks' onToolPress={onAcceptedTasksPress}/>
         <Tool title='Leave System' onToolPress={onLeaveSystemPress}/>
@@ -115,7 +156,8 @@ const styles = StyleSheet.create({
   salary: {
     borderRadius: 10,
     marginTop: 15,
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingBottom: 10,
     backgroundColor: '#E0F1FD'
   },
   money: {
@@ -146,5 +188,24 @@ const styles = StyleSheet.create({
     color: '#444444',
     fontSize: 15,
     fontWeight: 'bold',
+  },
+  modetab: {
+    flex: 1,
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modetitle: {
+    fontFamily: 'monospace',
+  },
+  cutlineV: {
+    borderRightWidth: 1,
+    marginTop: 5,
+    marginBottom: 2,
+    borderColor: 'grey'
+  },
+  cutlineH: {
+    borderBottomWidth: 1,
+    borderColor: 'grey'
   }
 });
