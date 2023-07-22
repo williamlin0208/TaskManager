@@ -1,5 +1,5 @@
 import React, {useState, useContext}from 'react';
-import {Dimensions, View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import {Dimensions, View, Text, Image, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import {Icon} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/core';
 
@@ -43,7 +43,13 @@ const Profile = () => {
   onLeaveSystemPress = () => {
 
   }
-  onAcceptedTasksPress = () => {
+  onMyTasksPress = () => {
+
+  }
+  onAppointTaskPress = () => {
+
+  }
+  onRequestskPress = () => {
 
   }
 
@@ -51,7 +57,9 @@ const Profile = () => {
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
-          <View style={styles.img}></View>
+          <View style={styles.imgblock}>
+            <Image source={require('../../../assets/user-default.png')} style={styles.img}/> 
+          </View>
           <View style={styles.name}>
             <Text style={{fontSize: 12, color: 'grey'}}>{manager?'Manager':'Staff'}</Text>
             <Text style={{fontSize: 20}}>{name}</Text>
@@ -66,8 +74,24 @@ const Profile = () => {
 
         <Salary salary={salary} mode={mode} goal={goal} onModeChange={onModeChange}/>
 
-        <Tool title='Accepted Tasks' onToolPress={onAcceptedTasksPress}/>
+        <View style={{marginTop: 10}}>
+          <Text style={{fontSize: 15, color: 'grey'}}>Funtions</Text>
+        </View>
+        <Tool title='My Tasks' onToolPress={onMyTasksPress}/>
         <Tool title='Leave System' onToolPress={onLeaveSystemPress}/>
+        {
+          manager?
+          <View>
+            <View style={{marginTop: 10}}>
+              <Text style={{fontSize: 15, color: 'grey'}}>Management</Text>
+            </View>
+            <Tool title='Requests' onToolPress={onRequestskPress}/>
+            <Tool title='Attendance' onToolPress={onAppointTaskPress}/>
+            <Tool title='Appoint Task' onToolPress={onAppointTaskPress}/>
+          </View>
+          :
+          <View></View>
+        }
       </ScrollView>
     </View>
   );
@@ -132,7 +156,7 @@ const Salary = (props) => {
       </View>
 
       <View style={{alignItems: 'flex-end', marginTop: 5}}>
-        <Text style={{fontWeight: 'bold'}}>GOAL:{props.goal.toFixed(2)}</Text>
+        <Text style={{fontWeight: 'bold'}}>Goal : {props.goal.toFixed(2)}</Text>
       </View>
     </View>
   );
@@ -167,10 +191,15 @@ const styles = StyleSheet.create({
   funtion: {
     padding: 5
   },
+  imgblock:{
+    height: SCREEN_HEIGHT/10,
+    width: SCREEN_HEIGHT/10,
+    backgroundColor: '#dddddd',
+    borderRadius: SCREEN_HEIGHT/10,
+  },
   img:{
     height: SCREEN_HEIGHT/10,
     width: SCREEN_HEIGHT/10,
-    backgroundColor: '#cfcfcf',
     borderRadius: SCREEN_HEIGHT/10,
   },
   name: {
@@ -198,7 +227,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderWidth: 1.5,
     borderRadius: 20,
-    borderColor: '#cccccc'
+    borderColor: '#bbbbbb'
   },
   tool: {
     height: 50,

@@ -8,13 +8,13 @@ const Tasksss=[
     title: '搬東西',
     day: 'Tues',
     time: '12:00~16:00',
-    fee: '2000'
+    reward: '2000'
   },
   {
     title: '買咖啡',
     day: 'Thur',
     time: '13:00~13:30',
-    fee: '100'
+    reward: '100'
   }
 ];
 

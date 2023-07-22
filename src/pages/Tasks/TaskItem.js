@@ -9,6 +9,7 @@ const {
 } = Dimensions.get('window');
 
 const TaskItem = (props) => {
+  console.log(props.task);
 
   onAcceptTaskPress = () => {
     props.onAcceptTaskPress(props.task)
@@ -42,9 +43,20 @@ const TaskItem = (props) => {
           <Text>{props.task.title}</Text>
         </View>
         <View style={styles.body}>
-          <Text>日期:{props.task.startTime.split(' ')[0].split('-')[1]}-{props.task.startTime.split(' ')[0].split('-')[2]}</Text>
-          <Text>時間:{props.task.startTime.split(' ')[1].split(':')[0]}:{props.task.startTime.split(' ')[1].split(':')[1]}~{props.task.endTime.split(' ')[1].split(':')[0]}:{props.task.endTime.split(' ')[1].split(':')[1]}</Text>
-          <Text>費用:{props.task.reward}</Text>
+          <Text style={styles.bold}>Date:</Text>
+          <View style={styles.dscp}>
+            <Text>{props.task.startTime.split(' ')[0].split('-')[0]} {props.task.startTime.split(' ')[0].split('-')[1]}/{props.task.startTime.split(' ')[0].split('-')[2]}</Text>
+          </View>
+
+          <Text style={styles.bold}>Time:</Text>
+          <View style={styles.dscp}>
+            <Text>{props.task.startTime.split(' ')[1].split(':')[0]}:{props.task.startTime.split(' ')[1].split(':')[1]}~{props.task.endTime.split(' ')[1].split(':')[0]}:{props.task.endTime.split(' ')[1].split(':')[1]}</Text>
+          </View>
+          
+          <Text style={styles.bold}>Reward:</Text>
+          <View style={styles.dscp}>
+            <Text>{props.task.reward}NTD</Text>
+          </View>
           {buttons()}
         </View>
       </View>
@@ -54,9 +66,15 @@ const TaskItem = (props) => {
           <Text>{props.task.title}</Text>
         </View>
         <View style={styles.body}>
-          <Text>星期:{props.task.day}</Text>
-          <Text>時間:{props.task.time}</Text>
-          <Text>費用:{props.task.reward}</Text>
+          <Text style={styles.bold}>Time:</Text>
+          <View style={styles.dscp}>
+            <Text>{props.task.time}</Text>
+          </View>
+
+          <Text style={styles.bold}>Reward:</Text>
+          <View style={styles.dscp}>
+            <Text>{props.task.reward}NTD</Text>
+          </View>
           {buttons()}
         </View>
       </View>
@@ -87,5 +105,11 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     flex: 1
+  },
+  bold: {
+    fontWeight: 500,
+  },
+  dscp: {
+    paddingLeft: SCREEN_WIDTH/50
   }
 });
