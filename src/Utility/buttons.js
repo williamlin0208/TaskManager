@@ -51,6 +51,23 @@ export const Accept = (props) => {
   );
 };
 
+export const HandIn = (props) => {
+
+  const navigation = useNavigation();
+
+  onHandInPress = () => {
+    navigation.navigate("TaskDetail",{task: props.task})
+  }
+
+  return (
+    <TouchableOpacity onPress={props.onHandInPress}>
+      <View style={styles.detail}>
+        <Text>提交</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
 export const PostButton = (props) => {
   const navigation = useNavigation();
 

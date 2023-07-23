@@ -1,17 +1,25 @@
-import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
+
+import { TaskItem } from '../Tasks/TaskItem';
+import {accept_work, loadBulletin} from '../../api';
 
 const MyTasks = () => {
 
-  const navigation=useNavigation();
+  const [Tasks, setTasks] = useState([]); 
+  useEffect(() => {
+    loadBulletin().then((data) => {setTasks(data)})
+  },[])
 
+  const navigation=useNavigation();
   return (
-    <View style={styles.container}>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>My Tasks</Text>
-      </View>
-    </View>
+    <FlatList style={{flex: 1}}
+      data={Tasks}
+      renderItem={({ item }) => {
+        return <TaskItem page={'MyTasks'} task={item}/>
+      }}
+    />
   );
 };
 

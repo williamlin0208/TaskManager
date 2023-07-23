@@ -16,7 +16,7 @@ const _loadBulletin = () => {
       remarks: ''
     },
     {
-      title: '買ssssssssssssss咖啡',
+      title: '買咖啡買咖啡買咖啡',
       startTime:'2023-7-26 12:00:00',
       endTime: '2023-7-26 18:00:00',
       reward: '100',

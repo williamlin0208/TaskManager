@@ -70,6 +70,7 @@ const Tasks = () => {
         </View>
         <NextPage onNextPress={onNextPress}/>
       </View>
+      
       <View style={styles.body}>
         <ScrollView horizontal={true}>
           <View style={[styles.borders,styles.taskwidth]}>
@@ -129,7 +130,6 @@ const styles = StyleSheet.create({
   },
   body:{
     flex: 10,
-    flexDirection: 'row'
   },
   days:{
     height: SCREEN_HEIGHT/20

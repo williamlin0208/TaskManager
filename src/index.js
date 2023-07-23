@@ -18,7 +18,7 @@ ctm_bar = ({ route }) => ({
       iconName = focused ? 'home' : 'home-outline';
     }else if (route.name === 'Tasks'){
       iconName = focused ? 'checkmark' : 'checkmark-outline';
-    }else if (route.name === 'Profile') {
+    }else if (route.name === 'ProfileIndex') {
       iconName = focused ? 'person' : 'person-outline';
     }
 
@@ -37,7 +37,7 @@ const Navigation = () => {
       <Tab.Navigator screenOptions={({route})=>(ctm_bar({route}))} initialRouteName="Home">
         <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 0}}/>
         <Tab.Screen name="Tasks" component={Tasks} options={{ tabBarBadge: 0}}/>
-        <Tab.Screen name="Profile" component={ProfileIndex} options={{ tabBarBadge: null}}/>
+        <Tab.Screen name="ProfileIndex" component={ProfileIndex} options={{ tabBarBadge: null}}/>
       </Tab.Navigator>
   );
 };
