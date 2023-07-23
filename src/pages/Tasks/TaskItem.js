@@ -9,8 +9,6 @@ const {
 } = Dimensions.get('window');
 
 const TaskItem = (props) => {
-  console.log(props.task);
-
   onAcceptTaskPress = () => {
     props.onAcceptTaskPress(props.task)
   }
