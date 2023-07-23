@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
 import { TaskItem } from '../Tasks/TaskItem';
@@ -7,49 +7,57 @@ import {accept_work, loadBulletin} from '../../api';
 
 const MyTasks = () => {
 
+  const Mode = (props) => {
+    let wordbeginstyle=props.title==props.mode?styles.wordbegin:styles.modetext;
+    return (
+      <TouchableOpacity style={styles.mode} onPress={props.onPress}>
+        <View style={styles.press}>
+          <Text style={styles.modetext}>
+            <Text style={wordbeginstyle}>{props.title[0]}</Text>
+            {props.title.slice(1)}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
+  const [Loading, setLoading] =useState(true);
   const [Tasks, setTasks] = useState([]); 
-  const [ModeName, setModeName] = useState('Confirmed');
+  const [ModeName, setModeName] = useState('Done');
 
   useEffect(() => {
-    loadBulletin().then((data) => {setTasks(data)})
+    loadBulletin().then((data) => {
+      setTasks(data);
+      setLoading(false);
+    });
   },[])
 
-  OnConfirmedPress = () => {
-
+  OnDonePress = () => {
+    setModeName('Done');
   }
-  OnUnconfirmedPress = () => {
-    
+  OnTBDPress = () => {
+    setModeName('TBD');
   }
   OnExpiredPress = () => {
-    
+    setModeName('Expired');
   }
   OnLeavePress = () => {
-    
-  }
-
-  const Mode = (props) => {
-    modestyle=props.first?styles.mode:[styles.mode, {borderLeftWidth: 1, borderColor: '#aaaaaa'}];
-    return (
-      <View style={modestyle}>
-        <TouchableOpacity>
-          <View style={styles.mode}>
-            <Text style={styles.modetext}>{props.title}</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    );
+    setModeName('Leave');
   }
 
   const navigation=useNavigation();
   return (
-    <View style={{flex: 1, paddingHorizontal: 20, marginTop: 10}}>
-      <View style={{height: 40, flexDirection: 'row', borderWidth: 1, borderColor: '#aaaaaa', borderRadius: 10, backgroundColor: 'white'}}>
-        <Mode title={'Confirmed'} first={true}/>
-        <Mode title={'Unconfirmed'} first={false}/>
-        <Mode title={'Expired'} first={false}/>
-        <Mode title={'Leave'} first={false}/>
+    <View style={{flex: 1}}>
+      <View style={{ flexDirection: 'row', borderBottomRightRadius: 10, borderBottomLeftRadius: 10, backgroundColor: '#88baec',}}>
+        <Mode title={'Done'} mode={ModeName} onPress={OnDonePress}/>
+        <Mode title={'TBD'} mode={ModeName} onPress={OnTBDPress}/>
+        <Mode title={'Expired'} mode={ModeName} onPress={OnExpiredPress}/>
+        <Mode title={'Leave'} mode={ModeName} onPress={OnLeavePress}/>
       </View>
-      <View style={{flex: 15}}>
+
+      {Loading?<View style={{marginTop: 10}}><ActivityIndicator size="large" color="#88baec"/></View>:''}
+
+      <View style={{flex: 15, paddingHorizontal: 20}}>
         <FlatList
           contentContainerStyle={{paddingBottom:10}} 
           data={Tasks}
@@ -77,11 +85,25 @@ const styles = StyleSheet.create({
   },
   mode: {
     flex: 1,
+    flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRightWidth: 0.5,
+    borderLeftWidth: 0.5,
+    borderColor: 'white'
   },
   modetext: {
+    color: 'white',
     fontSize: 12,
+    fontFamily: 'monospace',
+    fontWeight: 'bold',
+  },
+  press: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  wordbegin: {
+    fontSize: 25,
     fontWeight: 'bold',
   }
 });

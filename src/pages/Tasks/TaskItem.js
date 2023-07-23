@@ -120,10 +120,10 @@ export const TaskItem = (props) => {
 
 const styles = StyleSheet.create({
   block:{
-    marginTop: 5,
+    marginVertical: 5,
     padding: 5,
     backgroundColor: '#BADBFF',
-    width: SCREEN_WIDTH/3-10,
+    width: SCREEN_WIDTH/3-16,
   },
   strip:{
     marginTop: 10,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
   indent: {
-    paddingLeft: 10
+    alignItems: 'center'
   },
   button:{
     paddingTop: 5,
@@ -156,6 +156,6 @@ const styles = StyleSheet.create({
     fontWeight: 500,
   },
   dscp: {
-    paddingLeft: SCREEN_WIDTH/50
+    paddingLeft: SCREEN_WIDTH/60
   }
 });
