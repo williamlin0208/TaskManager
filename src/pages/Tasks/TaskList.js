@@ -43,13 +43,14 @@ const Tasksss=[
 const TaskList = (props) => {
   
   return (
-    <View style={{ flex: 20, marginTop: 10, alignItems: 'center' }}>
+    <View style={{marginTop: 5, alignItems: 'center' }}>
       <FlatList style={{flex: 1}}
         data={Tasksss}
         renderItem={({ item }) => {
           return <TaskItem page='Tasks' task={item}/>;
         }}
       />
+      <View style={{height: 10}}></View>
     </View>
   );
 };

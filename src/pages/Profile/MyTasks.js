@@ -14,12 +14,15 @@ const MyTasks = () => {
 
   const navigation=useNavigation();
   return (
-    <FlatList style={{flex: 1}}
-      data={Tasks}
-      renderItem={({ item }) => {
-        return <TaskItem page={'MyTasks'} task={item}/>
-      }}
-    />
+    <View style={{flex: 1}}>
+      <FlatList
+        data={Tasks}
+        renderItem={({ item }) => {
+          return <TaskItem page={'MyTasks'} task={item}/>
+        }}
+      />
+      <View style={{height: 10}}></View>
+    </View>
   );
 };
 

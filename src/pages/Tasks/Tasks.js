@@ -73,33 +73,56 @@ const Tasks = () => {
       
       <View style={styles.body}>
         <ScrollView horizontal={true}>
-          <View style={[styles.borders,styles.taskwidth]}>
-            <View style={styles.day}><Text style={styles.daytext}>{Days[0]}</Text></View>
-            <TaskList day={Days[0]}/>
-          </View>
-          <View style={[styles.borders,styles.taskwidth]}>
-            <View style={styles.day}><Text style={styles.daytext}>{Days[1]}</Text></View>
-            <TaskList day={Days[1]}/>
-          </View>
-          <View style={[styles.borders,styles.taskwidth]}>
-            <View style={styles.day}><Text style={styles.daytext}>{Days[2]}</Text></View>
-            <TaskList day={Days[2]}/>
-          </View>
-          <View style={[styles.borders,styles.taskwidth]}>
-            <View style={styles.day}><Text style={styles.daytext}>{Days[3]}</Text></View>
-            <TaskList day={Days[3]}/>
-          </View>
-          <View style={[styles.borders,styles.taskwidth]}>
-            <View style={styles.day}><Text style={styles.daytext}>{Days[4]}</Text></View>
-            <TaskList day={Days[4]}/>
-          </View>
-          <View style={[styles.borders,styles.taskwidth]}>
-            <View style={styles.day}><Text style={styles.daytext}>{Days[5]}</Text></View>
-            <TaskList day={Days[5]}/>
-          </View>
-          <View style={[styles.borders,styles.taskwidth]}>
-            <View style={styles.day}><Text style={styles.daytext}>{Days[6]}</Text></View>
-            <TaskList day={Days[6]}/>
+          <View>
+            <View style={{flexDirection: 'row', height: SCREEN_HEIGHT/20}}>
+              <View style={[styles.borders,styles.taskwidth]}>
+                <View style={styles.day}><Text style={styles.daytext}>{Days[0]}</Text></View>
+              </View>
+              <View style={[styles.borders,styles.taskwidth]}>
+                <View style={styles.day}><Text style={styles.daytext}>{Days[1]}</Text></View>
+              </View>
+              <View style={[styles.borders,styles.taskwidth]}>
+                <View style={styles.day}><Text style={styles.daytext}>{Days[2]}</Text></View>
+              </View>
+              <View style={[styles.borders,styles.taskwidth]}>
+                <View style={styles.day}><Text style={styles.daytext}>{Days[3]}</Text></View>
+              </View>
+              <View style={[styles.borders,styles.taskwidth]}>
+                <View style={styles.day}><Text style={styles.daytext}>{Days[4]}</Text></View>
+              </View>
+              <View style={[styles.borders,styles.taskwidth]}>
+                <View style={styles.day}><Text style={styles.daytext}>{Days[5]}</Text></View>
+              </View>
+              <View style={[styles.borders,styles.taskwidth]}>
+                <View style={styles.day}><Text style={styles.daytext}>{Days[6]}</Text></View>
+              </View>
+            </View>
+
+            <ScrollView>
+              <View style={{flexDirection: 'row'}}>
+                <View style={[styles.borders,styles.taskwidth]}>
+                  <TaskList day={Days[0]}/>
+                </View>
+                <View style={[styles.borders,styles.taskwidth]}>
+                  <TaskList day={Days[1]}/>
+                </View>
+                <View style={[styles.borders,styles.taskwidth]}>
+                  <TaskList day={Days[2]}/>
+                </View>
+                <View style={[styles.borders,styles.taskwidth]}>
+                  <TaskList day={Days[3]}/>
+                </View>
+                <View style={[styles.borders,styles.taskwidth]}>
+                  <TaskList day={Days[4]}/>
+                </View>
+                <View style={[styles.borders,styles.taskwidth]}>
+                  <TaskList day={Days[5]}/>
+                </View>
+                <View style={[styles.borders,styles.taskwidth]}>
+                  <TaskList day={Days[6]}/>
+                </View>
+              </View>
+            </ScrollView>
           </View>
         </ScrollView>
       </View>
