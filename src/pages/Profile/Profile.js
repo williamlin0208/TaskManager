@@ -40,8 +40,14 @@ const Profile = () => {
   onLogoutPress = () => {
 
   }
+  onPersonalInformationPress = () => {
+
+  }
   onLeaveSystemPress = () => {
 
+  }
+  onStaticsPress = () => {
+    
   }
   onMyTasksPress = () => {
 
@@ -61,7 +67,7 @@ const Profile = () => {
             <Image source={require('../../../assets/user-default.png')} style={styles.img}/> 
           </View>
           <View style={styles.name}>
-            <Text style={{fontSize: 12, color: 'grey'}}>{manager?'Manager':'Staff'}</Text>
+            <Text style={{fontSize: 12, color: 'grey'}}>{manager?'Manager':'Member'}</Text>
             <Text style={{fontSize: 20}}>{name}</Text>
           </View>
           <TouchableOpacity onPress={onSettingPress}>
@@ -77,8 +83,10 @@ const Profile = () => {
         <View style={{marginTop: 10}}>
           <Text style={{fontSize: 15, color: 'grey'}}>Funtions</Text>
         </View>
+        <Tool title='Personal Information' onToolPress={onPersonalInformationPress}/>
         <Tool title='My Tasks' onToolPress={onMyTasksPress}/>
         <Tool title='Leave System' onToolPress={onLeaveSystemPress}/>
+        <Tool title='Statics' onToolPress={onStaticsPress}/>
         {
           manager?
           <View>
@@ -151,12 +159,12 @@ const Salary = (props) => {
         <View style={styles.progressbar}>
           <View style={{flex: props.salary, height: 12,borderRadius: 100, backgroundColor: '#88baec'}}></View>
           <View style={{flex: unacheived}}></View>
-          <Text style={{fontWeight: 'bold', color: '#555555'}}>{(props.salary/props.goal*100).toFixed(2)}%</Text>
+          <Text style={{fontWeight: 'bold', color: '#333333', position: 'absolute', right: 12}}>{(props.salary/props.goal*100).toFixed(2)}%</Text>
         </View>
       </View>
 
       <View style={{alignItems: 'flex-end', marginTop: 5}}>
-        <Text style={{fontWeight: 'bold'}}>Goal : {props.goal.toFixed(2)}</Text>
+        <Text style={{fontWeight: 'bold'}}>Goal:{props.goal.toFixed(2)}NTD</Text>
       </View>
     </View>
   );
