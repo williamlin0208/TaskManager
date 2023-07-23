@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/core';
 import HomeScreen from './pages/Home/HomeScreen';
 import Profile from './pages/Profile/Profile';
 import Tasks from './pages/Tasks/Tasks';
+import ProfileIndex from './pages/Profile/ProfileIndex';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,7 +26,7 @@ ctm_bar = ({ route }) => ({
   },
   tabBarActiveTintColor: '#88baec',
   tabBarInactiveTintColor: 'gray',
-  // headerShown: false
+  headerShown: false
 })
 
 const Navigation = () => {
@@ -34,9 +35,9 @@ const Navigation = () => {
 
   return (
       <Tab.Navigator screenOptions={({route})=>(ctm_bar({route}))} initialRouteName="Home">
-        <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 0, headerShown: false}}/>
-        <Tab.Screen name="Tasks" component={Tasks} options={{ tabBarBadge: 0, headerShown: false }}/>
-        <Tab.Screen name="Profile" component={Profile} options={{ tabBarBadge: null }}/>
+        <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 0}}/>
+        <Tab.Screen name="Tasks" component={Tasks} options={{ tabBarBadge: 0}}/>
+        <Tab.Screen name="Profile" component={ProfileIndex} options={{ tabBarBadge: null}}/>
       </Tab.Navigator>
   );
 };

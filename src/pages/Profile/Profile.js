@@ -12,6 +12,8 @@ const {
 
 const Profile = () => {
 
+  const navigation = useNavigation();
+
   const context = useContext(ThemeContext);
   const manager = context.manager;
 
@@ -41,22 +43,25 @@ const Profile = () => {
 
   }
   onPersonalInformationPress = () => {
-
-  }
-  onLeaveSystemPress = () => {
-
-  }
-  onStaticsPress = () => {
-    
+    navigation.navigate("PersonalInfo");
   }
   onMyTasksPress = () => {
-
+    navigation.navigate("MyTasks");
   }
-  onAppointTaskPress = () => {
-
+  onLeaveSystemPress = () => {
+    navigation.navigate("LeaveSystem");
+  }
+  onStaticsPress = () => {
+    navigation.navigate("Statics");
   }
   onRequestskPress = () => {
-
+    navigation.navigate("Requests");
+  }
+  onStaffAttendancePress = () => {
+    navigation.navigate("StaffAttendance");
+  }
+  onAppointTaskPress = () => {
+    navigation.navigate("AppointTask");
   }
 
   return (
@@ -94,12 +99,13 @@ const Profile = () => {
               <Text style={{fontSize: 15, color: 'grey'}}>Management</Text>
             </View>
             <Tool title='Requests' onToolPress={onRequestskPress}/>
-            <Tool title='Attendance' onToolPress={onAppointTaskPress}/>
+            <Tool title='Staff Attendance' onToolPress={onStaffAttendancePress}/>
             <Tool title='Appoint Task' onToolPress={onAppointTaskPress}/>
           </View>
           :
           <View></View>
         }
+        <View style={{height: 10}}></View>
       </ScrollView>
     </View>
   );
