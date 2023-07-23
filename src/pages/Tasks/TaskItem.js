@@ -127,7 +127,6 @@ const styles = StyleSheet.create({
   },
   strip:{
     marginTop: 10,
-    marginHorizontal: 20,
     borderRadius: 10,
     padding: 5,
     backgroundColor: '#BADBFF',

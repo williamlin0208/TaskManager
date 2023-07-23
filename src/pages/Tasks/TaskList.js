@@ -45,12 +45,13 @@ const TaskList = (props) => {
   return (
     <View style={{marginTop: 5, alignItems: 'center' }}>
       <FlatList style={{flex: 1}}
+        contentContainerStyle={{paddingBottom:10}} 
         data={Tasksss}
+        scrollEnabled={false}
         renderItem={({ item }) => {
           return <TaskItem page='Tasks' task={item}/>;
         }}
       />
-      <View style={{height: 10}}></View>
     </View>
   );
 };
