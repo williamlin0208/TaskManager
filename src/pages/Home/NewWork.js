@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/core';
 // import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { PostButton } from '../../Utility/buttons';
 import { LoadingBar } from '../../Utility/utility';
-import { postWork } from '../../api/api';
+import { post_work } from '../../api/post';
 
 const NewWork = () => {
 
@@ -50,7 +50,7 @@ const NewWork = () => {
     const msg = checkValid();
     if (msg == 'ok'){
       setIsPosting(true);
-      postWork().then(() => {
+      post_work().then(() => {
         setIsPosting(false);
         showMessage(msg);
       })

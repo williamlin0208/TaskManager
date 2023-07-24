@@ -5,8 +5,10 @@ import {useNavigation} from '@react-navigation/core';
 
 import {ThemeContext} from '../../../Shared';
 import TaskItem from '../../Utility/TaskItem';
-import {accept_work, loadBulletin} from '../../api/api';
 import { LoadingBar } from '../../Utility/utility';
+
+import {get_bulletin} from '../../api/get_bulletin';
+import { put_accept_work } from '../../api/put';
 
 const {
   width: SCREEN_WIDTH,
@@ -23,7 +25,7 @@ const Bulletin = () => {
   const manager = context.manager;
 
   useEffect(() => {
-    loadBulletin().then((data) => {setTasks(data)})
+    get_bulletin().then((data) => {setTasks(data)})
   },[])
 
   console.log(context);
@@ -34,7 +36,7 @@ const Bulletin = () => {
 
   onAcceptTaskPress = (task) => {
     setIsLoaing(true);
-    accept_work(task).then((res) => {
+    put_accept_work(task).then((res) => {
       setIsLoaing(false);
     });
   }

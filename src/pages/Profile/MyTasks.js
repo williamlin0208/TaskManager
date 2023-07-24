@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator} f
 import {useNavigation} from '@react-navigation/core';
 
 import TaskItem from '../../Utility/TaskItem';
-import {accept_work, loadBulletin} from '../../api/api';
+import {get_bulletin} from '../../api/get_bulletin';
 
 const MyTasks = () => {
 
@@ -26,7 +26,7 @@ const MyTasks = () => {
   const [ModeName, setModeName] = useState('Done');
 
   useEffect(() => {
-    loadBulletin().then((data) => {
+    get_bulletin().then((data) => {
       setTasks(data);
       setLoading(false);
     });
