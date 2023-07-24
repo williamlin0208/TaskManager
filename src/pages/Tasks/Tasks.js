@@ -58,7 +58,7 @@ const Tasks = () => {
   return (
     <View style={styles.container}>
       <View style={{flex: 0.3, backgroundColor: '#88baec', paddingTop: 40, justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{color: 'white', fontFamily: 'monospace', fontWeight: '500'}}>
+        <Text style={{color: 'white', fontWeight: '500'}}>
           {startOfWeekM.add(offset*7, 'days').format('YYYYY/MM/DD')}~{endOfWeekM.add(offset*7, 'days').format('YYYY/MM/DD')}
         </Text>
       </View>
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   h1:{
     color: 'white',
     fontSize: h1Size,
-    fontFamily: 'monospace',
+    fontFamily: 'SpaceMono_700Bold_Italic',
     fontWeight: 'bold'
   },
   body:{
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   daytext:{
-    fontFamily: 'monospace'
+    fontFamily: 'SpaceMono_700Bold_Italic'
   },
   borders:{
     borderLeftColor: '#777777',
