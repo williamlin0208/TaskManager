@@ -27,20 +27,22 @@ const MyTasks = () => {
   const [Loading, setLoading] =useState(true);
   const [Tasks, setTasks] = useState([]); 
   const [ModeName, setModeName] = useState('Done');
+  let startDate, endDate;
 
   useEffect(() => {
-    new Promise((res,rej) => {
-      res(setLoading(true));
-    }).then(() => {
+    setLoading(true);
+  },[ModeName]);
+
+  useEffect(() => {
+    //下滑一次加載前一個禮拜
+    if(Loading==true){
       get_user_tasks_list(context.userId, ModeName).then((data) => {
         console.log('Loading '+ModeName+' tasks');
-        setTasks(data, ModeName);
+        setTasks(data);
         setLoading(false);
       });
-    }).catch(()=>{
-      console.log('Fail to load');
-    });
-  },[ModeName]);
+    }
+  },[Loading]);
 
   OnDonePress = () => {
     setModeName('Done');

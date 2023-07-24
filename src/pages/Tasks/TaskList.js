@@ -3,6 +3,8 @@ import {View, Text, ScrollView, FlatList} from 'react-native';
 
 import TaskItem from '../../Utility/TaskItem';
 
+import { get_user_tasks_list } from '../../api/get/get_user_tasks';
+
 const Tasksss=[
   {
     title: '搬東西',
@@ -41,12 +43,11 @@ const Tasksss=[
 ];
 
 const TaskList = (props) => {
-  
   return (
     <View style={{marginTop: 5, alignItems: 'center' }}>
       <FlatList style={{flex: 1}}
         contentContainerStyle={{paddingBottom:10}} 
-        data={Tasksss}
+        data={props.tasks}
         scrollEnabled={false}
         renderItem={({ item }) => {
           return <TaskItem form={'block'} state={'Undone'} dayMode={'none'} task={item}/>;

@@ -1,9 +1,13 @@
 import { Row } from 'native-base';
-import React, {useState} from 'react';
-import {Dimensions, View, Text, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
+import React, {useState, useEffect, useContext} from 'react';
+import {Dimensions, View, Text, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator} from 'react-native';
 import {Icon} from '@rneui/themed';
 
 import TaskList from './TaskList';
+
+import {ThemeContext} from '../../../Shared';
+
+import { get_user_tasks_list } from '../../api/get/get_user_tasks';
 
 const {
   width: SCREEN_WIDTH,
@@ -13,28 +17,56 @@ const {
 h1Size=SCREEN_HEIGHT/25;
 TaskWidth=SCREEN_WIDTH/3;
 
-
-
 //.format('YYYY/MM/DD d HH:mm:ss');
 const Tasks = () => {
-
-  const [offset, setOffset] = useState(0);
+  
 
   let moment = require('moment');
   let startOfWeekM=moment().startOf('week');
   let endOfWeekM=moment().endOf('week');
 
+  const Days=['Sun','Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];
+
+  const context = useContext(ThemeContext);
+  const [offset, setOffset] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    setTasks([]);
+  },[offset]);
+
+  useEffect(() => {
+    if(loading==true){
+      console.log('loading Weekly Tasks');
+      get_user_tasks_list(context.userId, 'AllMode').then((data) => {
+        setTasks(data);
+        setLoading(false);
+      }).catch(()=>{
+        console.log('Fail to load');
+      });
+    }
+  },[loading]);
+
   const onPrevPress = () => {
     setOffset((prevState) => (prevState-1));
+    setLoading(true);
   };
   const onNextPress = () => {
     setOffset((prevState) => (prevState+1));
+    setLoading(true);
   };
-
-  const Days=['Sun','Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];
 
   return (
     <View style={styles.container}>
+      {loading?
+        <View style={{position: 'absolute', top: SCREEN_HEIGHT/4, left: 0, right: 0}}>
+          <ActivityIndicator size="large" color="#88baec"/>
+        </View>
+        :
+        <View></View>
+      }
       <View style={{flex: 0.3, backgroundColor: '#88baec', paddingTop: 40, justifyContent: 'center', alignItems: 'center'}}>
         <Text style={{color: 'white', fontWeight: '500'}}>
           {startOfWeekM.add(offset*7, 'days').format('YYYYY/MM/DD')}~{endOfWeekM.add(offset*7, 'days').format('YYYY/MM/DD')}
@@ -79,25 +111,39 @@ const Tasks = () => {
             <ScrollView>
               <View style={{flexDirection: 'row'}}>
                 <View style={styles.taskwidth}>
-                  <TaskList day={Days[0]}/>
+                  <TaskList tasks={tasks.filter(() => {
+                    return true;
+                  })}/>
                 </View>
                 <View style={styles.taskwidth}>
-                  <TaskList day={Days[1]}/>
+                  <TaskList tasks={tasks.filter(() => {
+                    return true;
+                  })}/>
+                </View>
+                 <View style={styles.taskwidth}>
+                  <TaskList tasks={tasks.filter(() => {
+                    return true; 
+                  })}/>
                 </View>
                 <View style={styles.taskwidth}>
-                  <TaskList day={Days[2]}/>
+                  <TaskList tasks={tasks.filter(() => {
+                    return true;
+                  })}/>
                 </View>
                 <View style={styles.taskwidth}>
-                  <TaskList day={Days[3]}/>
+                  <TaskList tasks={tasks.filter(() => {
+                    return true;
+                  })}/>
                 </View>
                 <View style={styles.taskwidth}>
-                  <TaskList day={Days[4]}/>
+                  <TaskList tasks={tasks.filter(() => {
+                    return true;
+                  })}/>
                 </View>
                 <View style={styles.taskwidth}>
-                  <TaskList day={Days[5]}/>
-                </View>
-                <View style={styles.taskwidth}>
-                  <TaskList day={Days[6]}/>
+                  <TaskList tasks={tasks.filter(() => {
+                    return true;
+                  })}/>
                 </View>
               </View>
             </ScrollView>

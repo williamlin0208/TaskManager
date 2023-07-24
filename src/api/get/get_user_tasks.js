@@ -35,9 +35,10 @@ tasks = [
     }
   ];
   
-  export const get_user_tasks_list = (userId , mode, startTime, endTime) => {
+  //mode: AllMode, Unaccepted, Done, Undone, TBD, Expired
+  export const get_user_tasks_list = (userId , mode, startDate, endDate) => {
     return new Promise((res,rej) => {
-        setTimeout(() => {res(_get_user_tasks())}, 500)
+        setTimeout(() => {res(_get_user_tasks())}, 500);
     }) 
   }
   
