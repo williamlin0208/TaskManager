@@ -4,7 +4,7 @@ import {FAB} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/core';
 
 import {ThemeContext} from '../../../Shared';
-import {TaskItem} from '../Tasks/TaskItem';
+import TaskItem from '../../Utility/TaskItem';
 import {accept_work, loadBulletin} from '../../api';
 import { LoadingBar } from '../../Utility/utility';
 

@@ -7,7 +7,7 @@ import Bulletin from './Bulletin';
 import NewWork from './NewWork';
 import Notification, { NotificationDatail } from './Notification';
 import Settings from './Setting';
-import TaskDetail from '../Tasks/TaskDetail';
+import TaskDetail from '../../Utility/TaskDetail';
 import { TouchableOpacity } from 'react-native';
 
 const Stack = createNativeStackNavigator();
@@ -35,7 +35,7 @@ const HomeScreen = () => {
       <Stack.Screen name="NewWork" component={NewWork} />
       <Stack.Screen name="Notification" component={Notification} />
       <Stack.Screen name="Settings" component={Settings} />
-      <Stack.Screen name="TaskDetail" component={TaskDetail} />
+      <Stack.Screen name="HomeTaskDetail" component={TaskDetail} />
       <Stack.Screen name='NotificationDetail' component={NotificationDatail} options={{title:'Detail'}} />
     </Stack.Navigator>
   )

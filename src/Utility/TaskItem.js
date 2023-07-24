@@ -1,14 +1,14 @@
 import React from 'react';
 import {Dimensions, View, Text, StyleSheet} from 'react-native';
 
-import {Detail, Accept, HandIn} from '../../Utility/buttons';
+import {Detail, Accept, HandIn} from './buttons';
 
 const {
   width: SCREEN_WIDTH,
   height: SCREEN_HEIGHT,
 } = Dimensions.get('window');
 
-export const TaskItem = (props) => {
+const TaskItem = (props) => {
   onAcceptTaskPress = () => {
     props.onAcceptTaskPress(props.task)
   }
@@ -22,7 +22,7 @@ export const TaskItem = (props) => {
       return (
         <View style={{flex: 1, flexDirection: 'row'}}>
           <View style={styles.button}>
-            <Detail task={props.task}/>
+            <Detail task={props.task} from={props.page}/>
           </View>
           <View style={styles.button}>
             <Accept task={props.task} onAcceptTaskPress={onAcceptTaskPress}/>
@@ -33,7 +33,7 @@ export const TaskItem = (props) => {
       return (
         <View style={{flex: 1, flexDirection: 'row'}}>
           <View style={styles.button}>
-            <Detail task={props.task} onHandInPress={onHandInPress}/>
+            <Detail task={props.task} onHandInPress={onHandInPress} from={props.page}/>
           </View>
           <View style={styles.button}>
             <HandIn task={props.task} onHandInPress={onHandInPress}/>
@@ -117,6 +117,8 @@ export const TaskItem = (props) => {
     );
   }
 };
+
+export default TaskItem;
 
 const styles = StyleSheet.create({
   block:{

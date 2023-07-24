@@ -2,6 +2,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {Icon} from '@rneui/themed';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/core';
 
 export const Back = () => {
@@ -14,9 +15,7 @@ export const Back = () => {
 
   return (
     <TouchableOpacity onPress={onBackPress}>
-      <View style={styles.back}>
-        <Icon size={40} name='arrow-left' color="white"/>
-      </View>
+      <Ionicons name='chevron-back-outline' color='#3880FF' size={30}/>
     </TouchableOpacity>
   );
 };
@@ -26,7 +25,7 @@ export const Detail = (props) => {
   const navigation = useNavigation();
 
   onDetailPress = () => {
-    navigation.navigate("TaskDetail",{task: props.task})
+    navigation.navigate(`${props.from}TaskDetail`,{task: props.task, from: props.from})
   }
 
   return (

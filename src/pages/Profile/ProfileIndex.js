@@ -12,6 +12,7 @@ import Statics from './Statics';
 import Requests from './Requests';
 import StaffAttendance from './StaffAttendance';
 import AppointTask from './AppointTask';
+import TaskDetail from '../../Utility/TaskDetail';
 
 
 const Stack = createNativeStackNavigator();
@@ -30,6 +31,7 @@ const ProfileIndex = () => {
       <Stack.Screen name="Requests" component={Requests} options={{title: 'Requests'}}/>
       <Stack.Screen name="StaffAttendance" component={StaffAttendance} options={{title: 'Staff Attendance'}}/>
       <Stack.Screen name="AppointTask" component={AppointTask} options={{title: 'Appoint Task'}}/>
+      <Stack.Screen name="MyTasksTaskDetail" component={TaskDetail} options={{title: 'Task Detail'}} />
     </Stack.Navigator>
   )
 }

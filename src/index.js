@@ -7,10 +7,26 @@ import HomeScreen from './pages/Home/HomeScreen';
 import Profile from './pages/Profile/Profile';
 import Tasks from './pages/Tasks/Tasks';
 import ProfileIndex from './pages/Profile/ProfileIndex';
+import TasksIndex from './pages/Tasks/TasksIndex';
 
 const Tab = createBottomTabNavigator();
 
-ctm_bar = ({ route }) => ({
+const Navigation = () => {
+
+  const navigation = useNavigation();
+
+  return (
+      <Tab.Navigator screenOptions={({route})=>(ctm_bar({route}))} initialRouteName="Home">
+        <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 0}}/>
+        <Tab.Screen name="Tasks" component={TasksIndex} options={{ tabBarBadge: 0}}/>
+        <Tab.Screen name="ProfileIndex" component={ProfileIndex} options={{ tabBarBadge: null}}/>
+      </Tab.Navigator>
+  );
+};
+
+export default Navigation;
+
+const ctm_bar = ({ route }) => ({
   tabBarIcon: ({ focused, color, size }) => {
     let iconName;
 
@@ -28,21 +44,6 @@ ctm_bar = ({ route }) => ({
   tabBarInactiveTintColor: 'gray',
   headerShown: false
 })
-
-const Navigation = () => {
-
-  const navigation = useNavigation();
-
-  return (
-      <Tab.Navigator screenOptions={({route})=>(ctm_bar({route}))} initialRouteName="Home">
-        <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 0}}/>
-        <Tab.Screen name="Tasks" component={Tasks} options={{ tabBarBadge: 0}}/>
-        <Tab.Screen name="ProfileIndex" component={ProfileIndex} options={{ tabBarBadge: null}}/>
-      </Tab.Navigator>
-  );
-};
-
-export default Navigation;
 
 // <Stack.Screen name="Tab">
 //   {(props) => <SignInScreen {...props} setUserid={setUserid}/>}

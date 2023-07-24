@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
-import { TaskItem } from '../Tasks/TaskItem';
+import TaskItem from '../../Utility/TaskItem';
 import {accept_work, loadBulletin} from '../../api';
 
 const MyTasks = () => {
@@ -62,7 +62,7 @@ const MyTasks = () => {
           contentContainerStyle={{paddingBottom:10}} 
           data={Tasks}
           renderItem={({ item }) => {
-            return <TaskItem page={'MyTasks'} task={item}/>
+            return <TaskItem page='MyTasks' task={item}/>
           }}
         />
       </View>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, ScrollView, FlatList} from 'react-native';
 
-import {TaskItem} from './TaskItem';
+import TaskItem from '../../Utility/TaskItem';
 
 const Tasksss=[
   {
