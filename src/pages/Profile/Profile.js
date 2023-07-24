@@ -128,14 +128,14 @@ const Salary = (props) => {
   const ModeTab = (props) => {
     const corres={'Daily':'day', 'Weekly':'week', 'Monthly':'month'};
 
-    modestyle={fontWeight: 'normal', color: '#333333'};
-    if(corres[props.period]==props.mode) modestyle={fontWeight: 'bold', color: 'black',};
+    modestyle=styles.modetitleunselected;
+    if(corres[props.period]==props.mode) modestyle=styles.modetitleselected;
 
     return (
       <View style={{flex:1}}>
         <TouchableOpacity onPress={props.onPress}>
           <View style={styles.modetab}>
-            <Text style={[styles.modetitle,modestyle]}>{props.period}</Text>
+            <Text style={modestyle}>{props.period}</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E0F1FD'
   },
   money: {
-    fontFamily: 'SpaceMono_700Bold_Italic',
+    fontFamily: 'SpaceMono_700Bold',
     fontSize: 30,
     fontWeight: 'bold',
   },
@@ -263,8 +263,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  modetitle: {
-    fontFamily: 'monospace',
+  modetitleselected: {
+    fontFamily: 'SpaceMono_700Bold',
+  },
+  modetitleunselected: {
+    fontFamily: 'SpaceMono_400Regular',
   },
   cutlineV: {
     borderRightWidth: 1,

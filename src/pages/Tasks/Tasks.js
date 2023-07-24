@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   h1:{
     color: 'white',
     fontSize: h1Size,
-    fontFamily: 'SpaceMono_700Bold_Italic',
+    fontFamily: 'SpaceMono_700Bold',
     fontWeight: 'bold'
   },
   body:{
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   daytext:{
-    fontFamily: 'SpaceMono_700Bold_Italic'
+    fontFamily: 'SpaceMono_700Bold'
   },
   borders:{
     borderLeftColor: '#777777',

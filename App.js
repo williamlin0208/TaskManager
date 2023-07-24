@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import {Text} from 'react-native';
 import {NativeBaseProvider} from "native-base";
 import {NavigationContainer} from '@react-navigation/native';
-import { useFonts, SpaceMono_700Bold_Italic } from '@expo-google-fonts/space-mono';
+import { useFonts, SpaceMono_400Regular, SpaceMono_700Bold } from '@expo-google-fonts/space-mono';
+
 
 import Navigation from './src/index';
 
@@ -13,7 +14,8 @@ const App = () => {
   [manager,setManager] = useState(false);
 
   let [fontsLoaded] = useFonts({
-    SpaceMono_700Bold_Italic
+    SpaceMono_400Regular,
+    SpaceMono_700Bold
   });
 
   if(userId==1){
