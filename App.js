@@ -22,7 +22,6 @@ const App = () => {
 
   useEffect(() => {
     get_user_info().then((data) => {
-      console.log(data);
       setUserId(data.userId);
       setIdentity(data.identity);
     });

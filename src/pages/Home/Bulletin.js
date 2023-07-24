@@ -19,10 +19,11 @@ const Bulletin = () => {
 
   const navigation = useNavigation();
 
-  const [isLoading, setIsLoaing] = useState(false);
-  const [Tasks, setTasks] = useState([]); 
   const context = useContext(ThemeContext);
   const identity = context.identity;
+  
+  const [isLoading, setIsLoaing] = useState(false);
+  const [Tasks, setTasks] = useState([]); 
 
   useEffect(() => {
     get_bulletin().then((data) => {setTasks(data)})

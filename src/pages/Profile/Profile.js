@@ -4,6 +4,9 @@ import {Icon} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/core';
 
 import {ThemeContext} from '../../../Shared';
+import { useEffect } from 'react';
+
+import {get_user_info} from '../../api/get_user_info';
 
 const {
   width: SCREEN_WIDTH,
@@ -14,22 +17,31 @@ const Profile = () => {
 
   const navigation = useNavigation();
 
-  const context = useContext(ThemeContext);
-  const identity = context.identity;
-
   let moment = require('moment');
   let startOfMonthM=moment().startOf('month');
   let endOfMonthM=moment().endOf('month');
 
   dayOfThisMonth=1+endOfMonthM.diff(startOfMonthM, 'days');
 
+  const context = useContext(ThemeContext);
+  const userId = context.userId;
+  const identity = context.identity;
+
   const [mode, setMode] = useState('week');
   const [goalDays, setGoalDays] =useState(7);
 
-  let name='William';
-  let weeklyGoal=20000;
+  const [name, setName] = useState('User');
+  const [weeklyGoal, setWeeklyGoal] = useState(1);
+
   let goal=weeklyGoal*(goalDays/7);
   let salary=8000;
+
+  useEffect(() => {
+    get_user_info(userId).then((data) => {
+      setName(data.name);
+      setWeeklyGoal(data.weeklyGoal);
+    });
+  },[]);
 
   onModeChange = (newmode) => {
     setMode(newmode);
