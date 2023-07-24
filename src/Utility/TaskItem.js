@@ -17,121 +17,121 @@ const TaskItem = (props) => {
     
   }
 
-  buttons=()=>{
-    if(props.page=='Home'){
-      return (
-        <View style={{flex: 1, flexDirection: 'row'}}>
-          <View style={styles.button}>
-            <Detail task={props.task} from={props.page}/>
-          </View>
-          <View style={styles.button}>
-            <Accept task={props.task} onAcceptTaskPress={onAcceptTaskPress}/>
-          </View>
-        </View>
-      );
-    }else if(props.page=='Tasks' || props.page=='MyTasks'){
-      return (
-        <View style={{flex: 1, flexDirection: 'row'}}>
-          <View style={styles.button}>
-            <Detail task={props.task} onHandInPress={onHandInPress} from={props.page}/>
-          </View>
-          <View style={styles.button}>
-            <HandIn task={props.task} onHandInPress={onHandInPress}/>
-          </View>
-        </View>
-      );
+  const form = props.form=='block'?styles.c3:styles.c1;
+  const flexstyle = props.form=='block'?styles.flexleft:styles.flexcenter;
+
+  const buttons = () => {
+    buttonRight = () => {
+      switch (props.state) {
+        case 'Unaccepted':
+          return (<Accept task={props.task} onAcceptTaskPress={onAcceptTaskPress}/>);
+        case 'Done':
+          return (
+            <View style={styles.fakebutton}>
+              <Text>已完成</Text>
+            </View>
+          );
+        case 'Undone':
+          return (<HandIn task={props.task} onHandInPress={onHandInPress}/>);
+        case 'TBD':
+          return (
+            <View style={styles.fakebutton}>
+              <Text>待確認</Text>
+            </View>
+          );
+        case 'Expired':
+          return (
+            <View style={styles.fakebutton}>
+              <Text>已過期</Text>
+            </View>
+          );
+        default:
+          return (
+            <View style={styles.fakebutton}>
+              <Text>已過期</Text>
+            </View>
+          );
+          break;
+      }
     }
+    return(
+      <View style={{flex: 1, flexDirection: 'row'}}>
+        <View style={styles.button}>
+          <Detail task={props.task} from={props.page}/>
+        </View>
+        <View style={styles.button}>
+          {buttonRight()}
+        </View>
+      </View>
+    );
   }
-  if(props.page=='Home'){
-    return (
-        <View style={styles.block}>
-          <View style={styles.title}>
-            <Text>{props.task.title}</Text>
-          </View>
-          <View style={styles.body}>
+
+  const day = () => {
+    switch (props.dayMode) {
+      case 'date':
+        return (
+          <View style={flexstyle}>
             <Text style={styles.bold}>Date:</Text>
             <View style={styles.dscp}>
               <Text>{props.task.startTime.split(' ')[0].split('-')[0]} {props.task.startTime.split(' ')[0].split('-')[1]}/{props.task.startTime.split(' ')[0].split('-')[2]}</Text>
             </View>
-  
-            <Text style={styles.bold}>Time:</Text>
-            <View style={styles.dscp}>
-              <Text>{props.task.startTime.split(' ')[1].split(':')[0]}:{props.task.startTime.split(' ')[1].split(':')[1]}~{props.task.endTime.split(' ')[1].split(':')[0]}:{props.task.endTime.split(' ')[1].split(':')[1]}</Text>
+          </View>
+        );
+      case 'none':
+        return (<View></View>);
+      default: 
+        return (<View></View>);
+        break;
+    }
+  }
+
+  return (
+    <View style={form}>
+      <View style={styles.content}>
+        <View style={styles.title}>
+          <Text>{props.task.title}</Text>
+        </View>
+        <View style={styles.body}>
+          <View style={flexstyle}>
+            {day()}
+            
+            <View style={flexstyle}>
+              <Text style={styles.bold}>Time:</Text>
+              <View style={styles.dscp}>
+                <Text>{props.task.startTime.split(' ')[1].split(':')[0]}:{props.task.startTime.split(' ')[1].split(':')[1]}~{props.task.endTime.split(' ')[1].split(':')[0]}:{props.task.endTime.split(' ')[1].split(':')[1]}</Text>
+              </View>
+            </View>
+
+            <View style={flexstyle}>
+              <Text style={styles.bold}>Reward:</Text>
+              <View style={styles.dscp}>
+                <Text>{props.task.reward}NTD</Text>
+              </View>
             </View>
             
-            <Text style={styles.bold}>Reward:</Text>
-            <View style={styles.dscp}>
-              <Text>{props.task.reward}NTD</Text>
-            </View>
             {buttons()}
           </View>
         </View>
-    );
-  }else if(props.page=='Tasks'){
-    return (
-      <View style={styles.block}>
-        <View style={styles.title}>
-          <Text>{props.task.title}</Text>
-        </View>
-        <View style={styles.body}>
-          <Text style={styles.bold}>Time:</Text>
-          <View style={styles.dscp}>
-            <Text>{props.task.startTime.split(' ')[1].split(':')[0]}:{props.task.startTime.split(' ')[1].split(':')[1]}~{props.task.endTime.split(' ')[1].split(':')[0]}:{props.task.endTime.split(' ')[1].split(':')[1]}</Text>
-          </View>
-
-          <Text style={styles.bold}>Reward:</Text>
-          <View style={styles.dscp}>
-            <Text>{props.task.reward}NTD</Text>
-          </View>
-          {buttons()}
-        </View>
       </View>
-    );
-  }else if(props.page=='MyTasks'){
-    return (
-      <View style={styles.strip}>
-        <View style={styles.title}>
-          <Text>{props.task.title}</Text>
-        </View>
-        <View style={styles.body}>
-          <View style={styles.indent}>
-            <Text>
-              <Text style={styles.bold}>Date:</Text>
-              {props.task.startTime.split(' ')[0].split('-')[0]} {props.task.startTime.split(' ')[0].split('-')[1]}/{props.task.startTime.split(' ')[0].split('-')[2]}
-            </Text>
-            
-            <Text>
-              <Text style={styles.bold}>Time:</Text>
-              {props.task.startTime.split(' ')[1].split(':')[0]}:{props.task.startTime.split(' ')[1].split(':')[1]}~{props.task.endTime.split(' ')[1].split(':')[0]}:{props.task.endTime.split(' ')[1].split(':')[1]}
-            </Text>
-            
-            <Text>
-              <Text style={styles.bold}>Reward:</Text>
-              {props.task.reward}NTD
-            </Text>
-          </View>
-        
-          {buttons()}
-        </View>
-      </View>
-    );
-  }
+    </View>
+  );
 };
 
 export default TaskItem;
 
 const styles = StyleSheet.create({
-  block:{
-    marginVertical: 5,
-    padding: 5,
-    backgroundColor: '#BADBFF',
-    width: SCREEN_WIDTH/3-16,
+  content: {
+    padding: 8,
+    borderRadius: 5,
+    marginHorizontal: 8,
+    backgroundColor: '#BADBFF'
   },
-  strip:{
-    marginTop: 10,
-    borderRadius: 10,
-    padding: 5,
-    backgroundColor: '#BADBFF',
+  c3:{
+    marginVertical: 5,
+    width: SCREEN_WIDTH/3
+  },
+  c1:{
+    marginVertical: 5,
   },
   title:{
     flex: 1,
@@ -145,8 +145,13 @@ const styles = StyleSheet.create({
     flex: 4,
     marginTop: 5
   },
-  indent: {
+  flexcenter: {
+    marginBottom: 3,
     alignItems: 'center'
+  },
+  flexleft: {
+    marginBottom: 3,
+    alignItems: 'flex-start'
   },
   button:{
     paddingTop: 5,
@@ -159,5 +164,11 @@ const styles = StyleSheet.create({
   },
   dscp: {
     paddingLeft: SCREEN_WIDTH/60
+  },
+  fakebutton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    backgroundColor: '#ffffff'
   }
 });

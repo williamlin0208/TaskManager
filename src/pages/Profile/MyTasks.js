@@ -45,14 +45,14 @@ const MyTasks = () => {
   OnDonePress = () => {
     setModeName('Done');
   }
-  OnTBDPress = () => {
-    setModeName('TBD');
+  OnUndonePress = () => {
+    setModeName('Undone');
   }
   OnExpiredPress = () => {
     setModeName('Expired');
   }
-  OnLeavePress = () => {
-    setModeName('Leave');
+  OnTBDPress = () => {
+    setModeName('TBD');
   }
 
   const navigation=useNavigation();
@@ -60,9 +60,9 @@ const MyTasks = () => {
     <View style={{flex: 1}}>
       <View style={{ flexDirection: 'row', borderBottomRightRadius: 10, borderBottomLeftRadius: 10, backgroundColor: '#88baec',}}>
         <Mode title={'Done'} mode={ModeName} onPress={OnDonePress}/>
+        <Mode title={'Undone'} mode={ModeName} onPress={OnUndonePress}/>
         <Mode title={'TBD'} mode={ModeName} onPress={OnTBDPress}/>
         <Mode title={'Expired'} mode={ModeName} onPress={OnExpiredPress}/>
-        <Mode title={'Leave'} mode={ModeName} onPress={OnLeavePress}/>
       </View>
 
       {Loading?
@@ -75,7 +75,7 @@ const MyTasks = () => {
             contentContainerStyle={{paddingBottom:10}} 
             data={Tasks}
             renderItem={({ item }) => {
-              return <TaskItem page='MyTasks' task={item}/>
+              return <TaskItem form={'strip'} state={ModeName} dayMode={'date'} task={item}/>
             }}
           />
         </View>

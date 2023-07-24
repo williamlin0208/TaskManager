@@ -61,7 +61,7 @@ const Bulletin = () => {
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
               data={Tasks}
-              renderItem={({ item }) => { return <View style={styles.task}><TaskItem page='Home' task={item} onAcceptTaskPress={onAcceptTaskPress}/></View>; }}
+              renderItem={({ item }) => { return <View style={styles.task}><TaskItem form={'block'} state={'Unaccepted'} dayMode={'date'} task={item} onAcceptTaskPress={onAcceptTaskPress}/></View>; }}
             />
           </ScrollView>
         </View>

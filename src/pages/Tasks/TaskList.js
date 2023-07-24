@@ -49,7 +49,7 @@ const TaskList = (props) => {
         data={Tasksss}
         scrollEnabled={false}
         renderItem={({ item }) => {
-          return <TaskItem page='Tasks' task={item}/>;
+          return <TaskItem form={'block'} state={'Undone'} dayMode={'none'} task={item}/>;
         }}
       />
     </View>
