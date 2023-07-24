@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/core';
 // import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { PostButton } from '../../Utility/buttons';
 import { LoadingBar } from '../../Utility/utility';
-import { post_work } from '../../api/post';
+import { post_work } from '../../api/post/post';
 
 const NewWork = () => {
 

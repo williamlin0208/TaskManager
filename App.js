@@ -8,7 +8,7 @@ import Navigation from './src/index';
 
 import {ThemeContext} from './Shared';
 
-import {get_user_info} from './src/api/get_user_info';
+import {get_user_info} from './src/api/get/get_user_info';
  
 const App = () => {
 

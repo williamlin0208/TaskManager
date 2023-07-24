@@ -84,7 +84,7 @@ const Profile = () => {
             <Image source={require('../../../assets/user-default.png')} style={styles.img}/> 
           </View>
           <View style={styles.name}>
-            <Text style={{fontSize: 12, color: 'grey'}}>{manager?'Manager':'Member'}</Text>
+            <Text style={{fontSize: 12, color: 'grey'}}>{identity}</Text>
             <Text style={{fontSize: 20}}>{name}</Text>
           </View>
           <TouchableOpacity onPress={onSettingPress}>

@@ -13,29 +13,7 @@ const {
 h1Size=SCREEN_HEIGHT/25;
 TaskWidth=SCREEN_WIDTH/3;
 
-const NextPage = (props) => {
-  const onNextPress = () => {
-    props.onNextPress();
-  };
 
-  return (
-    <TouchableOpacity onPress={onNextPress}>
-      <Icon size={40} name='arrow-right' color="white"/>
-    </TouchableOpacity>
-  );
-}
-
-const PrevPage = (props) => {
-  const onPrevPress = () => {
-    props.onPrevPress();
-  };
-
-  return (
-    <TouchableOpacity onPress={onPrevPress}>
-      <Icon size={40} name='arrow-left' color="white"/>
-    </TouchableOpacity>
-  );
-}
 
 //.format('YYYY/MM/DD d HH:mm:ss');
 const Tasks = () => {
@@ -75,7 +53,7 @@ const Tasks = () => {
         <ScrollView horizontal={true}>
           <View>
             <View style={{flexDirection: 'row', height: SCREEN_HEIGHT/20}}>
-              <View style={[styles.borders,styles.taskwidth]}>
+              <View style={styles.taskwidth}>
                 <View style={styles.day}><Text style={styles.daytext}>{Days[0]}</Text></View>
               </View>
               <View style={[styles.borders,styles.taskwidth]}>
@@ -100,25 +78,25 @@ const Tasks = () => {
 
             <ScrollView>
               <View style={{flexDirection: 'row'}}>
-                <View style={[styles.borders,styles.taskwidth]}>
+                <View style={styles.taskwidth}>
                   <TaskList day={Days[0]}/>
                 </View>
-                <View style={[styles.borders,styles.taskwidth]}>
+                <View style={styles.taskwidth}>
                   <TaskList day={Days[1]}/>
                 </View>
-                <View style={[styles.borders,styles.taskwidth]}>
+                <View style={styles.taskwidth}>
                   <TaskList day={Days[2]}/>
                 </View>
-                <View style={[styles.borders,styles.taskwidth]}>
+                <View style={styles.taskwidth}>
                   <TaskList day={Days[3]}/>
                 </View>
-                <View style={[styles.borders,styles.taskwidth]}>
+                <View style={styles.taskwidth}>
                   <TaskList day={Days[4]}/>
                 </View>
-                <View style={[styles.borders,styles.taskwidth]}>
+                <View style={styles.taskwidth}>
                   <TaskList day={Days[5]}/>
                 </View>
-                <View style={[styles.borders,styles.taskwidth]}>
+                <View style={styles.taskwidth}>
                   <TaskList day={Days[6]}/>
                 </View>
               </View>
@@ -131,6 +109,30 @@ const Tasks = () => {
 };
 
 export default Tasks;
+
+const NextPage = (props) => {
+  const onNextPress = () => {
+    props.onNextPress();
+  };
+
+  return (
+    <TouchableOpacity onPress={onNextPress}>
+      <Icon size={40} name='arrow-right' color="white"/>
+    </TouchableOpacity>
+  );
+}
+
+const PrevPage = (props) => {
+  const onPrevPress = () => {
+    props.onPrevPress();
+  };
+
+  return (
+    <TouchableOpacity onPress={onPrevPress}>
+      <Icon size={40} name='arrow-left' color="white"/>
+    </TouchableOpacity>
+  );
+}
 
 const styles = StyleSheet.create({
   container:{
@@ -149,7 +151,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: h1Size,
     fontFamily: 'SpaceMono_700Bold',
-    fontWeight: 'bold'
   },
   body:{
     flex: 10,
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
     fontFamily: 'SpaceMono_700Bold'
   },
   borders:{
-    borderLeftColor: '#777777',
+    borderLeftColor: 'white',
     borderLeftWidth: 1,
     borderStyle: 'solid'
   },

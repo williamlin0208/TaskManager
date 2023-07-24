@@ -9,8 +9,8 @@ import { NotificationDetail, NotificationPass, NotificationFail } from '../../Ut
 import { LoadingBar } from '../../Utility/utility';
 import { ScrollView } from 'native-base';
 
-import { get_notification_cancel_list, get_notification_assign_list, get_notification_done_list} from '../../api/get_notification';
-import { put_work_pass, put_work_fail } from '../../api/put';
+import { get_notification_cancel_list, get_notification_assign_list, get_notification_done_list} from '../../api/get/get_notification';
+import { put_work_pass, put_work_fail } from '../../api/put/put';
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -22,10 +22,10 @@ const {
 const Notification = () => {
 
   const context = useContext(ThemeContext);
-  const manager = context.manager;
+  const identity = context.identity;
 
   return (
-    manager ? 
+    identity=='Manager' ? 
     <TopTab.Navigator initialRouteName='assign'>
       <TopTab.Screen name='cancel'>
         {(props) => <NotificationPage {...props} type='cancel'/>}

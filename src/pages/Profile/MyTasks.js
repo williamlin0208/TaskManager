@@ -5,7 +5,7 @@ import {useNavigation} from '@react-navigation/core';
 import {ThemeContext} from '../../../Shared';
 
 import TaskItem from '../../Utility/TaskItem';
-import {get_user_tasks_list} from '../../api/get_user_tasks';
+import {get_user_tasks_list} from '../../api/get/get_user_tasks';
 
 const MyTasks = () => {
 

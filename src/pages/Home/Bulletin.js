@@ -69,13 +69,12 @@ const Bulletin = () => {
           identity=='Manager'?
             <View style={styles.fab}>
               <FAB
-                visible={manager?true:false}
                 icon={{ name: 'add', color: 'white' }}
                 color="#88baec"
                 size='large'
                 onPress={onNewWorkPress}
               />
-              {manager?<Text style={{marginTop: 10, color: '#444444'}}>Add New Task</Text>:""}   
+              <Text style={{marginTop: 10, color: '#444444'}}>Add New Task</Text>   
             </View>
           :
             ''
