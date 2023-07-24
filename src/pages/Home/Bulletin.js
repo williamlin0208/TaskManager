@@ -8,7 +8,7 @@ import TaskItem from '../../Utility/TaskItem';
 import { LoadingBar } from '../../Utility/utility';
 
 import {get_bulletin} from '../../api/get_bulletin';
-import { put_accept_work } from '../../api/put';
+import {put_accept_work} from '../../api/put';
 
 const {
   width: SCREEN_WIDTH,
@@ -22,7 +22,7 @@ const Bulletin = () => {
   const [isLoading, setIsLoaing] = useState(false);
   const [Tasks, setTasks] = useState([]); 
   const context = useContext(ThemeContext);
-  const manager = context.manager;
+  const identity = context.identity;
 
   useEffect(() => {
     get_bulletin().then((data) => {setTasks(data)})
@@ -64,16 +64,20 @@ const Bulletin = () => {
             />
           </ScrollView>
         </View>
-        <View style={styles.fab}>
-          <FAB
-            visible={manager?true:false}
-            icon={{ name: 'add', color: 'white' }}
-            color="#88baec"
-            size='large'
-            onPress={onNewWorkPress}
-          />
-          {manager?<Text style={{marginTop: 10, color: '#444444'}}>Add New Task</Text>:""}   
-        </View>
+        {identity=='Manager'?
+          <View style={styles.fab}>
+            <FAB
+              visible={manager?true:false}
+              icon={{ name: 'add', color: 'white' }}
+              color="#88baec"
+              size='large'
+              onPress={onNewWorkPress}
+            />
+            {manager?<Text style={{marginTop: 10, color: '#444444'}}>Add New Task</Text>:""}   
+          </View>
+          :
+          ''
+        }
       </View>
   );
 };

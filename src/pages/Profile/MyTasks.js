@@ -33,10 +33,12 @@ const MyTasks = () => {
       res(setLoading(true));
     }).then(() => {
       get_user_tasks_list(context.userId, ModeName).then((data) => {
-        console.log('loading '+ModeName+' tasks');
+        console.log('Loading '+ModeName+' tasks');
         setTasks(data, ModeName);
         setLoading(false);
       });
+    }).catch(()=>{
+      console.log('Fail to load');
     });
   },[ModeName]);
 

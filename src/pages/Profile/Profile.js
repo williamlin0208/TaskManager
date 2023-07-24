@@ -15,7 +15,7 @@ const Profile = () => {
   const navigation = useNavigation();
 
   const context = useContext(ThemeContext);
-  const manager = context.manager;
+  const identity = context.identity;
 
   let moment = require('moment');
   let startOfMonthM=moment().startOf('month');
@@ -93,7 +93,7 @@ const Profile = () => {
         <Tool title='Leave System' onToolPress={onLeaveSystemPress}/>
         <Tool title='Statics' onToolPress={onStaticsPress}/>
         {
-          manager?
+          identity=='Manager'?
           <View>
             <View style={{marginTop: 10}}>
               <Text style={{fontSize: 15, color: 'grey'}}>Management</Text>
