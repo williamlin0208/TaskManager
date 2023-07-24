@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator} f
 import {useNavigation} from '@react-navigation/core';
 
 import TaskItem from '../../Utility/TaskItem';
-import {accept_work, loadBulletin} from '../../api';
+import {accept_work, loadBulletin} from '../../api/api';
 
 const MyTasks = () => {
 

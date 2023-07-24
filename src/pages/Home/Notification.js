@@ -5,7 +5,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { ThemeContext } from '../../../Shared';
-import { get_notification_cancel_list, get_notification_assign_list, get_notification_done_list, work_pass, work_fail } from '../../api';
+import { get_notification_cancel_list, get_notification_assign_list, get_notification_done_list, work_pass, work_fail } from '../../api/api';
 import { NotificationDetail, NotificationPass, NotificationFail } from '../../Utility/buttons';
 import { LoadingBar } from '../../Utility/utility';
 import { ScrollView } from 'native-base';

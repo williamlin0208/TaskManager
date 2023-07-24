@@ -5,7 +5,7 @@ import {useNavigation} from '@react-navigation/core';
 
 import {ThemeContext} from '../../../Shared';
 import TaskItem from '../../Utility/TaskItem';
-import {accept_work, loadBulletin} from '../../api';
+import {accept_work, loadBulletin} from '../../api/api';
 import { LoadingBar } from '../../Utility/utility';
 
 const {
