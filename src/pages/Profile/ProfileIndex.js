@@ -11,7 +11,7 @@ import LeaveSystem from './LeaveSystem';
 import Statics from './Statics';
 import Requests from './Requests';
 import StaffAttendance from './StaffAttendance';
-import AppointTask from './AppointTask';
+import AllTasks from './AllTasks';
 import TaskDetail from '../../Utility/TaskDetail';
 
 
@@ -29,8 +29,8 @@ const ProfileIndex = () => {
       <Stack.Screen name="LeaveSystem" component={LeaveSystem} options={{title: 'Leave System'}}/>
       <Stack.Screen name="Statics" component={Statics} options={{title: 'Statics'}}/>
       <Stack.Screen name="Requests" component={Requests} options={{title: 'Requests'}}/>
-      <Stack.Screen name="StaffAttendance" component={StaffAttendance} options={{title: 'Staff Attendance'}}/>
-      <Stack.Screen name="AppointTask" component={AppointTask} options={{title: 'Appoint Task'}}/>
+      <Stack.Screen name="StaffAttendance" component={StaffAttendance} options={{title: 'StaffAttendance'}}/>
+      <Stack.Screen name="AllTasks" component={AllTasks} options={{title: 'All Tasks'}}/>
       <Stack.Screen name="MyTasksTaskDetail" component={TaskDetail} options={{title: 'Task Detail'}} />
     </Stack.Navigator>
   )

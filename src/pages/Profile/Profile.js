@@ -60,8 +60,8 @@ const Profile = () => {
   onStaffAttendancePress = () => {
     navigation.navigate("StaffAttendance");
   }
-  onAppointTaskPress = () => {
-    navigation.navigate("AppointTask");
+  onAllTasksPress = () => {
+    navigation.navigate("AllTasks");
   }
 
   return (
@@ -100,7 +100,7 @@ const Profile = () => {
             </View>
             <Tool title='Requests' onToolPress={onRequestskPress}/>
             <Tool title='Staff Attendance' onToolPress={onStaffAttendancePress}/>
-            <Tool title='Appoint Task' onToolPress={onAppointTaskPress}/>
+            <Tool title='All Tasks' onToolPress={onAllTasksPress}/>
           </View>
           :
           <View></View>

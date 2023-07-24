@@ -2,20 +2,20 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
-const AppointTask = () => {
+const AllTasks = () => {
 
   const navigation=useNavigation();
 
   return (
     <View style={styles.container}>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Appoint Task</Text>
+        <Text>All Tasks</Text>
       </View>
     </View>
   );
 };
 
-export default AppointTask;
+export default AllTasks;
 
 const styles = StyleSheet.create({
   container:{
