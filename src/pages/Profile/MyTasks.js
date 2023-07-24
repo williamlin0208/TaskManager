@@ -1,9 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
+import {ThemeContext} from '../../../Shared';
+
 import TaskItem from '../../Utility/TaskItem';
-import {get_my_tasks_list} from '../../api/get_my_tasks';
+import {get_user_tasks_list} from '../../api/get_user_tasks';
 
 const MyTasks = () => {
 
@@ -21,16 +23,22 @@ const MyTasks = () => {
     );
   }
 
+  const context = useContext(ThemeContext);
   const [Loading, setLoading] =useState(true);
   const [Tasks, setTasks] = useState([]); 
   const [ModeName, setModeName] = useState('Done');
 
   useEffect(() => {
-    get_my_tasks_list().then((data) => {
-      setTasks(data);
-      setLoading(false);
+    new Promise((res,rej) => {
+      res(setLoading(true));
+    }).then(() => {
+      get_user_tasks_list(context.userId, ModeName).then((data) => {
+        console.log('loading '+ModeName+' tasks');
+        setTasks(data, ModeName);
+        setLoading(false);
+      });
     });
-  },[])
+  },[ModeName]);
 
   OnDonePress = () => {
     setModeName('Done');
@@ -55,17 +63,22 @@ const MyTasks = () => {
         <Mode title={'Leave'} mode={ModeName} onPress={OnLeavePress}/>
       </View>
 
-      {Loading?<View style={{marginTop: 10}}><ActivityIndicator size="large" color="#88baec"/></View>:''}
+      {Loading?
+        <View style={{marginTop: 10}}>
+          <ActivityIndicator size="large" color="#88baec"/>
+        </View>
+        :
+        <View style={{flex: 15, paddingHorizontal: 20}}>
+          <FlatList
+            contentContainerStyle={{paddingBottom:10}} 
+            data={Tasks}
+            renderItem={({ item }) => {
+              return <TaskItem page='MyTasks' task={item}/>
+            }}
+          />
+        </View>
+      }
 
-      <View style={{flex: 15, paddingHorizontal: 20}}>
-        <FlatList
-          contentContainerStyle={{paddingBottom:10}} 
-          data={Tasks}
-          renderItem={({ item }) => {
-            return <TaskItem page='MyTasks' task={item}/>
-          }}
-        />
-      </View>
     </View>
   );
 };

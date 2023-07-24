@@ -35,12 +35,12 @@ tasks = [
     }
   ];
   
-  export const get_my_tasks_list = (userid , mode) => {
+  export const get_user_tasks_list = (userid , mode) => {
     return new Promise((res,rej) => {
-        setTimeout(() => {res(_get_my_tasks())}, 500)
+        setTimeout(() => {res(_get_user_tasks())}, 500)
     }) 
   }
   
-  const _get_my_tasks = () => {
+  const _get_user_tasks = () => {
      return tasks;
   }
