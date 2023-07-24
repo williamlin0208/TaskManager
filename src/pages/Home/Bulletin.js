@@ -7,8 +7,8 @@ import {ThemeContext} from '../../../Shared';
 import TaskItem from '../../Utility/TaskItem';
 import { LoadingBar } from '../../Utility/utility';
 
-import {get_bulletin} from '../../api/get_bulletin';
-import {put_accept_work} from '../../api/put';
+import {get_bulletin} from '../../api/get/get_bulletin';
+import {put_accept_work} from '../../api/put/put';
 
 const {
   width: SCREEN_WIDTH,
@@ -21,7 +21,7 @@ const Bulletin = () => {
 
   const context = useContext(ThemeContext);
   const identity = context.identity;
-  
+
   const [isLoading, setIsLoaing] = useState(false);
   const [Tasks, setTasks] = useState([]); 
 

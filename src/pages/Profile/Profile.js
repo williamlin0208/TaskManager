@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/core';
 import {ThemeContext} from '../../../Shared';
 import { useEffect } from 'react';
 
-import {get_user_info} from '../../api/get_user_info';
+import {get_user_info} from '../../api/get/get_user_info';
 
 const {
   width: SCREEN_WIDTH,
