@@ -15,9 +15,9 @@ const Navigation = () => {
 
   return (
       <Tab.Navigator screenOptions={({route})=>(ctm_bar({route}))} initialRouteName="Home">
-        <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 0}}/>
-        <Tab.Screen name="TasksIndex" component={TasksIndex} options={{ tabBarBadge: 0}}/>
-        <Tab.Screen name="ProfileIndex" component={ProfileIndex} options={{ tabBarBadge: null}}/>
+        <Tab.Screen name="Home" component={HomeScreen} options={{tabBarBadge: 0}}/>
+        <Tab.Screen name="TasksIndex" component={TasksIndex} options={{title: "Tasks", tabBarBadge: 0}}/>
+        <Tab.Screen name="ProfileIndex" component={ProfileIndex} options={{title: "Profile", tabBarBadge: null}}/>
       </Tab.Navigator>
   );
 };
