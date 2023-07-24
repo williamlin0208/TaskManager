@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   modetext: {
     color: 'white',
     fontSize: 12,
-    fontFamily: 'monospace',
+    // fontFamily: 'monospace',
     fontWeight: 'bold',
   },
   press: {

@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E0F1FD'
   },
   money: {
-    fontFamily: 'monospace',
+    // fontFamily: 'monospace',
     fontSize: 30,
     fontWeight: 'bold',
   },
@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   modetitle: {
-    fontFamily: 'monospace',
+    // fontFamily: 'monospace',
   },
   cutlineV: {
     borderRightWidth: 1,

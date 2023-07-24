@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { ThemeContext } from '../../../Shared';
@@ -109,7 +108,7 @@ const NotificationListItem = ({item, type, onPassPress, onFailPress}) => {
 
       <View style={[styles.listItem,{flexDirection:'row',height:60}]}>
         <View style={{width:'15%',justifyContent:'center',alignItems:'center'}}>
-          <Ionicons name={iconName} size={'50%'}/>
+          <Ionicons name={iconName} size={50}/>
         </View>
         <Text style={{width:'70%'}}>{
           item.status == 'leave' ? `${item.userName}取消了"${item.work.title}"` : 
@@ -129,7 +128,7 @@ const NotificationListItem = ({item, type, onPassPress, onFailPress}) => {
 
         <View style={{flexDirection:'row',height:60,justifyContent:'center',alignItems:'center'}}>
           <View style={{width:'15%'}}>
-            <Ionicons name={iconName} size={'50%'}/>
+            <Ionicons name={iconName} size={50}/>
           </View>
           <Text style={{width:'70%'}}>{
             item.status == 'leave' ? `${item.userName}取消了"${item.work.title}"` : 
