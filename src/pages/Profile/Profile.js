@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   modetitle: {
-    fontFamily: 'SpaceMono_700Bold_Italic',
+    fontFamily: 'monospace',
   },
   cutlineV: {
     borderRightWidth: 1,
