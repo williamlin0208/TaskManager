@@ -186,7 +186,7 @@ const ListItem = ({ item }) => {
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "flex-start",
-        marginTop: 10,
+        marginVertical: 15,
       }}
     >
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
