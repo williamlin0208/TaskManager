@@ -4,9 +4,11 @@ import {FAB} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/core';
 
 import {ThemeContext} from '../../../Shared';
-import TaskItem from '../Tasks/TaskItem';
-import {accept_work, loadBulletin} from '../../api'
+import TaskItem from '../../Utility/TaskItem';
 import { LoadingBar } from '../../Utility/utility';
+
+import {get_bulletin} from '../../api/get/get_bulletin';
+import {put_accept_work} from '../../api/put/put';
 
 const {
   width: SCREEN_WIDTH,
@@ -17,13 +19,14 @@ const Bulletin = () => {
 
   const navigation = useNavigation();
 
+  const context = useContext(ThemeContext);
+  const identity = context.identity;
+
   const [isLoading, setIsLoaing] = useState(false);
   const [Tasks, setTasks] = useState([]); 
-  const context = useContext(ThemeContext);
-  const manager = context.manager;
 
   useEffect(() => {
-    loadBulletin().then((data) => {setTasks(data)})
+    get_bulletin().then((data) => {setTasks(data)})
   },[])
 
   console.log(context);
@@ -34,7 +37,7 @@ const Bulletin = () => {
 
   onAcceptTaskPress = (task) => {
     setIsLoaing(true);
-    accept_work(task).then((res) => {
+    put_accept_work(task).then((res) => {
       setIsLoaing(false);
     });
   }
@@ -43,7 +46,7 @@ const Bulletin = () => {
     isLoading ? 
       <LoadingBar />
     :
-      <View style={{ flex: 1}}>
+      <View style={{ flex: 1, backgroundColor: '#fafafa'}}>
         <View style={{flex: 1}}> 
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -58,20 +61,24 @@ const Bulletin = () => {
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
               data={Tasks}
-              renderItem={({ item }) => { return <View style={styles.task}><TaskItem page='Home' task={item} onAcceptTaskPress={onAcceptTaskPress}/></View>; }}
+              renderItem={({ item }) => { return <View style={styles.task}><TaskItem form={'block'} state={'Unaccepted'} dayMode={'date'} task={item} onAcceptTaskPress={onAcceptTaskPress}/></View>; }}
             />
           </ScrollView>
         </View>
-        <View style={styles.fab}>
-          <FAB
-            visible={manager?true:false}
-            icon={{ name: 'add', color: 'white' }}
-            color="#88baec"
-            size='large'
-            onPress={onNewWorkPress}
-          />
-          {manager?<Text style={{marginTop: 10, color: '#444444'}}>Add New Task</Text>:""}   
-        </View>
+        {
+          identity=='Manager'?
+            <View style={styles.fab}>
+              <FAB
+                icon={{ name: 'add', color: 'white' }}
+                color="#88baec"
+                size='large'
+                onPress={onNewWorkPress}
+              />
+              <Text style={{marginTop: 10, color: '#444444'}}>Add New Task</Text>   
+            </View>
+          :
+            ''
+        }
       </View>
   );
 };
