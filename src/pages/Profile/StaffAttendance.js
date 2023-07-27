@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  TextInput,
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -15,10 +16,12 @@ import { LoadingBar } from "../../Utility/utility";
 const StaffAttendance = () => {
   const navigation = useNavigation();
 
-  const [StaffAttendanceList, setStaffAttendanceList] = useState([]);
+  const [staffAttendanceList, setStaffAttendanceList] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
   const [isLoading, setIsLoaing] = useState(false);
   const [sortKey, setSortKey] = useState("");
   const [direction, setDirection] = useState("");
+  const [searchKey, setSearchKey] = useState("");
   const [render, setRender] = useState(false);
 
   useEffect(() => {
@@ -29,19 +32,27 @@ const StaffAttendance = () => {
         return x;
       });
       setStaffAttendanceList(data);
+      setFilteredList(data);
       setIsLoaing(false);
     });
   }, []);
 
   useEffect(() => {
-    if (direction == "") return;
-    setStaffAttendanceList(
-      direction == "desc"
-        ? StaffAttendanceList.sort((a, b) => b[sortKey] - a[sortKey])
-        : StaffAttendanceList.sort((a, b) => a[sortKey] - b[sortKey])
-    );
+    result = [];
+    if (searchKey == "") result = staffAttendanceList;
+    else
+      result = staffAttendanceList.filter((task) =>
+        task.userName.toLowerCase().includes(searchKey.toLowerCase())
+      );
+
+    if (direction != "")
+      result =
+        direction == "desc"
+          ? result.sort((a, b) => b[sortKey] - a[sortKey])
+          : result.sort((a, b) => a[sortKey] - b[sortKey]);
+    setFilteredList(result);
     setRender(!render); //force re-render
-  }, [sortKey, direction]);
+  }, [searchKey, sortKey, direction]);
 
   onHeadPress = (btnName) => {
     if (sortKey == "") {
@@ -59,9 +70,11 @@ const StaffAttendance = () => {
     <LoadingBar />
   ) : (
     <View style={styles.container}>
+      <View style={{ width: "94%", marginHorizontal: "3%", marginTop: 12 }}>
+        <SearchBar searchKey={searchKey} setSearchKey={setSearchKey} />
+      </View>
       <Sheet
-        data={StaffAttendanceList}
-        setData={setStaffAttendanceList}
+        data={filteredList}
         sortKey={sortKey}
         direction={direction}
         onHeadPress={onHeadPress}
@@ -71,6 +84,25 @@ const StaffAttendance = () => {
 };
 
 export default StaffAttendance;
+
+const SearchBar = ({ searchKey, setSearchKey }) => {
+  return (
+    <TextInput
+      style={{
+        height: 35,
+        width: "100%",
+        backgroundColor: "white",
+        borderWidth: 1,
+        borderColor: "grey",
+        borderRadius: 40,
+        paddingStart: 10,
+      }}
+      onChangeText={(text) => setSearchKey(text)}
+      value={searchKey}
+      placeholder="search"
+    />
+  );
+};
 
 const Sheet = ({ data, sortKey, direction, onHeadPress }) => {
   return (
@@ -99,7 +131,17 @@ const Head = ({ onHeadPress, sortKey, direction }) => {
         marginTop: 10,
       }}
     >
-      <View style={styles.head}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+
+          paddingVertical: 5,
+          flexDirection: "column",
+          height: "100%",
+        }}
+      >
         <Text>Name</Text>
       </View>
       <TouchableOpacity
@@ -186,7 +228,8 @@ const ListItem = ({ item }) => {
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "flex-start",
-        marginVertical: 15,
+        paddingVertical: 15,
+        borderBottomWidth: 1,
       }}
     >
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>

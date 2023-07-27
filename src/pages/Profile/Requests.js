@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 import {
   get_notification_done_list,
@@ -21,6 +22,8 @@ import {
   NotificationPass,
 } from "../../Utility/buttons";
 import { put_work_fail, put_work_pass } from "../../api/put/put";
+
+const TopTab = createMaterialTopTabNavigator();
 
 const Request = () => {
   const [requestList, setRequestList] = useState([]);
@@ -55,43 +58,47 @@ const Request = () => {
   return isLoading ? (
     <LoadingBar />
   ) : (
-    <View style={styles.container}>
-      <View style={{ flex: 1, paddingVertical: 15, marginStart: 10 }}>
-        <Text style={{ fontSize: 25 }}>Unhandled</Text>
-      </View>
-      <View style={{ flex: 10 }}>
-        <FlatList
-          data={requestList}
-          renderItem={({ item }) => (
-            <ListItem
-              item={item}
-              onFailPress={onFailPress}
-              onPassPress={onPassPress}
-            />
-          )}
-        />
-      </View>
-
-      <View style={{ flex: 1, paddingVertical: 15, marginStart: 10 }}>
-        <Text style={{ fontSize: 25 }}>Handled</Text>
-      </View>
-      <View style={{ flex: 10 }}>
-        <FlatList
-          data={handledList}
-          renderItem={({ item }) => (
-            <ListItem
-              item={item}
-              onFailPress={onFailPress}
-              onPassPress={onPassPress}
-            />
-          )}
-        />
-      </View>
-    </View>
+    <TopTab.Navigator initialRouteName="unhandled">
+      <TopTab.Screen name="unhandled">
+        {(props) => (
+          <TaskList
+            {...props}
+            dataList={requestList}
+            onPassPress={onPassPress}
+            onFailPress={onFailPress}
+          />
+        )}
+      </TopTab.Screen>
+      <TopTab.Screen name="handled">
+        {(props) => (
+          <TaskList
+            {...props}
+            dataList={handledList}
+            onPassPress={onPassPress}
+            onFailPress={onFailPress}
+          />
+        )}
+      </TopTab.Screen>
+    </TopTab.Navigator>
   );
 };
 
 export default Request;
+
+const TaskList = ({ dataList, onFailPress, onPassPress }) => {
+  return (
+    <FlatList
+      data={dataList}
+      renderItem={({ item }) => (
+        <ListItem
+          item={item}
+          onFailPress={onFailPress}
+          onPassPress={onPassPress}
+        />
+      )}
+    />
+  );
+};
 
 const ListItem = ({ item, onFailPress, onPassPress }) => {
   const navigation = useNavigation();
@@ -176,6 +183,7 @@ const ListItem = ({ item, onFailPress, onPassPress }) => {
             </View>
             <View style={{ flex: 1, alignItems: "center" }}>
               <Text style={{ fontSize: 12, color: "grey" }}>
+                finish time:
                 {bottomTime.split(" ")[0].split("/")[1]}/
                 {bottomTime.split(" ")[0].split("/")[2]}{" "}
                 {bottomTime.split(" ")[1].split(":")[0]}:
@@ -189,6 +197,7 @@ const ListItem = ({ item, onFailPress, onPassPress }) => {
             <View style={{ flex: 1 }} />
             <View style={{ flex: 1, alignItems: "center" }}>
               <Text style={{ fontSize: 12, color: "grey" }}>
+                handle time:
                 {bottomTime.split(" ")[0].split("/")[1]}/
                 {bottomTime.split(" ")[0].split("/")[2]}{" "}
                 {bottomTime.split(" ")[1].split(":")[0]}:
