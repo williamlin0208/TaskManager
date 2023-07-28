@@ -1,8 +1,6 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/core";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { TouchableOpacity } from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
 
 import Profile from "./Profile";
 import PersonalInfo from "./PersonalInfo";

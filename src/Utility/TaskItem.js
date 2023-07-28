@@ -22,13 +22,25 @@ const TaskItem = (props) => {
           return (
             <Accept task={props.task} onAcceptTaskPress={onAcceptTaskPress} />
           );
-        case "Done":
+        case "done":
           return (
             <View style={styles.fakebutton}>
-              <Text>已完成</Text>
+              <Text>未審查</Text>
             </View>
           );
-        case "Undone":
+        case "pass":
+          return (
+            <View style={styles.fakebutton}>
+              <Text>通過</Text>
+            </View>
+          );
+        case "fail":
+          return (
+            <View style={styles.fakebutton}>
+              <Text>未通過</Text>
+            </View>
+          );
+        case "claimed":
           return <HandIn task={props.task} onHandInPress={onHandInPress} />;
         case "TBD":
           return (
@@ -36,10 +48,16 @@ const TaskItem = (props) => {
               <Text>待確認</Text>
             </View>
           );
-        case "Expired":
+        case "due":
           return (
             <View style={styles.fakebutton}>
               <Text>已過期</Text>
+            </View>
+          );
+        case "leave":
+          return (
+            <View style={styles.fakebutton}>
+              <Text>已請假</Text>
             </View>
           );
         default:
@@ -68,11 +86,7 @@ const TaskItem = (props) => {
           <View style={flexstyle}>
             <Text style={styles.bold}>Date:</Text>
             <View style={styles.dscp}>
-              <Text>
-                {props.task.startTime.split(" ")[0].split("-")[0]}{" "}
-                {props.task.startTime.split(" ")[0].split("-")[1]}/
-                {props.task.startTime.split(" ")[0].split("-")[2]}
-              </Text>
+              <Text>{props.task.startTime.format("MM-DD")}</Text>
             </View>
           </View>
         );
@@ -98,10 +112,8 @@ const TaskItem = (props) => {
               <Text style={styles.bold}>Time:</Text>
               <View style={styles.dscp}>
                 <Text>
-                  {props.task.startTime.split(" ")[1].split(":")[0]}:
-                  {props.task.startTime.split(" ")[1].split(":")[1]}~
-                  {props.task.endTime.split(" ")[1].split(":")[0]}:
-                  {props.task.endTime.split(" ")[1].split(":")[1]}
+                  {props.task.startTime.format("HH:mm")}~
+                  {props.task.endTime.format("HH:mm")}
                 </Text>
               </View>
             </View>

@@ -10,10 +10,7 @@ import { useNavigation } from "@react-navigation/core";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import {
-  get_notification_done_list,
-  get_done_handled_list,
-} from "../../api/get/get_notification";
+import { get_done_tasks, get_handled_tasks } from "../../api/get/get_tasks";
 import { LoadingBar } from "../../Utility/utility";
 import { List } from "native-base";
 import {
@@ -32,13 +29,17 @@ const Request = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    get_notification_done_list().then((data) => {
-      setRequestList(data);
-    });
-    get_done_handled_list().then((data) => {
-      setHandledList(data);
-      setIsLoading(false);
-    });
+    get_done_tasks()
+      .then((data) => {
+        setRequestList(data);
+      })
+      .catch((err) => console.log(err));
+    get_handled_tasks()
+      .then((data) => {
+        setHandledList(data);
+        setIsLoading(false);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const onPassPress = (item) => {
@@ -107,12 +108,12 @@ const ListItem = ({ item, onFailPress, onPassPress }) => {
 
   const onDetailPress = () => {
     navigation.navigate("MyTasksTaskDetail", {
-      task: item.work,
+      task: item,
       from: "requests",
     });
   };
 
-  const bottomTime = item.review == 0 ? item.doneTime : item.reviewTime;
+  const bottomTime = item.statusTime.format("MM-DD HH:mm");
 
   return (
     <View
@@ -124,25 +125,25 @@ const ListItem = ({ item, onFailPress, onPassPress }) => {
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          <Text>{item.userName}</Text>
+          <Text>{item.workerName}</Text>
         </View>
         <View
           style={{ flex: 3, justifyContent: "center", alignItems: "center" }}
         >
-          <Text>{item.work.title}</Text>
+          <Text>{item.title}</Text>
         </View>
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          {item.review == 0 ? (
+          {item.status == "done" ? (
             <Ionicons name="help-circle-outline" size={40} />
-          ) : item.review == 1 ? (
+          ) : item.status == "pass" ? (
             <Ionicons
               name="checkmark-done-circle-outline"
               size={40}
               color="green"
             />
-          ) : item.review == -1 ? (
+          ) : item.status == "fail" ? (
             <Ionicons name="close-circle-outline" size={40} color="red" />
           ) : (
             <View />
@@ -170,12 +171,11 @@ const ListItem = ({ item, onFailPress, onPassPress }) => {
         <View />
       )}
       <View style={styles.listTail}>
-        {item.review == 0 ? (
+        {item.status == "done" ? (
           <TouchableOpacity
             style={{ width: "100%", flexDirection: "row" }}
             onPress={() => setIsFolded(!isFolded)}
           >
-            <View style={{ flex: 1 }} />
             <View style={{ flex: 1, alignItems: "center" }}>
               <Text style={{ fontSize: 12, color: "grey" }}>
                 {isFolded ? "Unfold" : "Fold"}
@@ -183,25 +183,16 @@ const ListItem = ({ item, onFailPress, onPassPress }) => {
             </View>
             <View style={{ flex: 1, alignItems: "center" }}>
               <Text style={{ fontSize: 12, color: "grey" }}>
-                finish time:
-                {bottomTime.split(" ")[0].split("/")[1]}/
-                {bottomTime.split(" ")[0].split("/")[2]}{" "}
-                {bottomTime.split(" ")[1].split(":")[0]}:
-                {bottomTime.split(" ")[1].split(":")[1]}
+                finish time: {bottomTime}
               </Text>
             </View>
           </TouchableOpacity>
         ) : (
           <View style={{ width: "100%", flexDirection: "row" }}>
             <View style={{ flex: 1 }} />
-            <View style={{ flex: 1 }} />
             <View style={{ flex: 1, alignItems: "center" }}>
               <Text style={{ fontSize: 12, color: "grey" }}>
-                handle time:
-                {bottomTime.split(" ")[0].split("/")[1]}/
-                {bottomTime.split(" ")[0].split("/")[2]}{" "}
-                {bottomTime.split(" ")[1].split(":")[0]}:
-                {bottomTime.split(" ")[1].split(":")[1]}
+                handle time: {bottomTime}
               </Text>
             </View>
           </View>

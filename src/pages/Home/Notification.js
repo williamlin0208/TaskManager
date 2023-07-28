@@ -21,10 +21,10 @@ import { LoadingBar } from "../../Utility/utility";
 import { ScrollView } from "native-base";
 
 import {
-  get_notification_cancel_list,
-  get_notification_assign_list,
-  get_notification_done_list,
-} from "../../api/get/get_notification";
+  get_claimed_tasks,
+  get_not_able_to_finish_tasks,
+  get_done_tasks,
+} from "../../api/get/get_tasks";
 import { put_work_pass, put_work_fail } from "../../api/put/put";
 
 const TopTab = createMaterialTopTabNavigator();
@@ -36,12 +36,12 @@ const Notification = () => {
   const identity = context.identity;
 
   return identity == "Manager" ? (
-    <TopTab.Navigator initialRouteName="assign">
+    <TopTab.Navigator initialRouteName="claimed">
       <TopTab.Screen name="cancel">
         {(props) => <NotificationPage {...props} type="cancel" />}
       </TopTab.Screen>
-      <TopTab.Screen name="assign">
-        {(props) => <NotificationPage {...props} type="assign" />}
+      <TopTab.Screen name="claimed">
+        {(props) => <NotificationPage {...props} type="claimed" />}
       </TopTab.Screen>
       <TopTab.Screen name="done">
         {(props) => <NotificationPage {...props} type="done" />}
@@ -64,19 +64,17 @@ const NotificationPage = ({ type }) => {
 
   if (type == "cancel")
     useEffect(() => {
-      get_notification_cancel_list().then((data_list) =>
+      get_not_able_to_finish_tasks().then((data_list) =>
         setDataList(data_list)
       );
     }, []);
-  else if (type == "assign")
+  else if (type == "claimed")
     useEffect(() => {
-      get_notification_assign_list().then((data_list) =>
-        setDataList(data_list)
-      );
+      get_claimed_tasks().then((data_list) => setDataList(data_list));
     }, []);
   else if (type == "done")
     useEffect(() => {
-      get_notification_done_list().then((data_list) => setDataList(data_list));
+      get_done_tasks().then((data_list) => setDataList(data_list));
     }, []);
 
   const onPassPress = (item) => {
@@ -123,7 +121,7 @@ const NotificationListItem = ({ item, type, onPassPress, onFailPress }) => {
       ? "close-circle-outline"
       : item.status == "due"
       ? "alarm-outline"
-      : item.status == "accept"
+      : item.status == "claimed"
       ? "arrow-forward-outline"
       : item.status == "done"
       ? "checkmark-done-outline"
@@ -143,13 +141,13 @@ const NotificationListItem = ({ item, type, onPassPress, onFailPress }) => {
       </View>
       <Text style={{ width: "70%" }}>
         {item.status == "leave"
-          ? `${item.userName}取消了"${item.work.title}"`
+          ? `${item.workerName}取消了"${item.title}"`
           : item.status == "due"
-          ? `${item.userName}未能及時完成"${item.work.title}"`
-          : item.status == "accept"
-          ? `${item.userName}接取了"${item.work.title}"`
+          ? `${item.workerName}未能及時完成"${item.title}"`
+          : item.status == "claimed"
+          ? `${item.workerName}接取了"${item.title}"`
           : item.status == "done"
-          ? `${item.userName}完成了"${item.work.title}"`
+          ? `${item.workerName}完成了"${item.title}"`
           : ``}
       </Text>
       <View
@@ -173,13 +171,13 @@ const NotificationListItem = ({ item, type, onPassPress, onFailPress }) => {
         </View>
         <Text style={{ width: "70%" }}>
           {item.status == "leave"
-            ? `${item.userName}取消了"${item.work.title}"`
+            ? `${item.workerName}取消了"${item.title}"`
             : item.status == "due"
-            ? `${item.userName}未能及時完成"${item.work.title}"`
+            ? `${item.workerName}未能及時完成"${item.title}"`
             : item.status == "accept"
-            ? `${item.userName}接取了"${item.work.title}"`
+            ? `${item.workerName}接取了"${item.title}"`
             : item.status == "done"
-            ? `${item.userName}完成了"${item.work.title}"`
+            ? `${item.workerName}完成了"${item.title}"`
             : ``}
         </Text>
         <View style={{ width: "15%" }}>
@@ -231,7 +229,7 @@ export const NotificationDatail = ({ route }) => {
 
   const onPassPress = (item) => {
     setIsLoading(true);
-    work_pass().then((res) => {
+    put_work_pass().then((res) => {
       setIsLoading(false);
       navigation.navigate("Notification");
     });
@@ -239,7 +237,7 @@ export const NotificationDatail = ({ route }) => {
 
   const onFailPress = (item) => {
     setIsLoading(true);
-    work_fail().then((res) => {
+    put_work_fail().then((res) => {
       setIsLoading(false);
       navigation.navigate("Notification");
     });
@@ -265,7 +263,7 @@ export const NotificationDatail = ({ route }) => {
         >
           <Text>Worker: </Text>
           <View style={styles.profilePic} />
-          <Text>{item.userName}</Text>
+          <Text>{item.workerName}</Text>
         </View>
         <View
           style={{
@@ -274,7 +272,7 @@ export const NotificationDatail = ({ route }) => {
             marginVertical: 20,
           }}
         >
-          <Text>Work Name: {item.work.title}</Text>
+          <Text>Work Name: {item.title}</Text>
         </View>
         <View
           style={{
@@ -283,7 +281,7 @@ export const NotificationDatail = ({ route }) => {
             marginVertical: 20,
           }}
         >
-          <Text>Start Time: {item.work.startTime}</Text>
+          <Text>Start Time: {item.startTime.format("MM-DD HH:mm")}</Text>
         </View>
         <View
           style={{
@@ -292,7 +290,7 @@ export const NotificationDatail = ({ route }) => {
             marginVertical: 20,
           }}
         >
-          <Text>End Time: {item.work.endTime}</Text>
+          <Text>End Time: {item.endTime.format("MM-DD HH:mm")}</Text>
         </View>
         <View
           style={{
@@ -301,7 +299,7 @@ export const NotificationDatail = ({ route }) => {
             marginVertical: 20,
           }}
         >
-          <Text>Reward: {item.work.reward}</Text>
+          <Text>Reward: {item.reward}</Text>
         </View>
         <View
           style={{
@@ -310,7 +308,7 @@ export const NotificationDatail = ({ route }) => {
             marginVertical: 20,
           }}
         >
-          <Text>Remarks: {item.work.remarks}</Text>
+          <Text>Remarks: {item.remarks}</Text>
         </View>
         <View
           style={{
@@ -327,7 +325,7 @@ export const NotificationDatail = ({ route }) => {
               ? "已請假"
               : item.status == "done"
               ? "完成未審核"
-              : item.status == "accept"
+              : item.status == "claimed"
               ? "已接受工作"
               : ""}
           </Text>
