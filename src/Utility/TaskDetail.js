@@ -25,10 +25,10 @@ const TaskDetail = ({ route }) => {
           Title: {task.title}
         </Text>
         <Text style={{ fontSize: 20, alignSelf: "center" }}>
-          Day: {task.day}
+          Day: {task.startTime.format("MM-DD")}
         </Text>
         <Text style={{ fontSize: 20, alignSelf: "center" }}>
-          Time: {task.time}
+          Time: {task.startTime.format("HH:mm")}~{task.endTime.format("HH:mm")}
         </Text>
         <Text style={{ fontSize: 20, alignSelf: "center" }}>
           Reward: {task.reward}
@@ -52,7 +52,7 @@ const DetailContent = () => {
   return (
     <View style={styles.detail}>
       <Text style={{ fontSize: 25, alignSelf: "center", fontWeight: "bold" }}>
-        Detail
+        Remarks
       </Text>
       <View
         style={{

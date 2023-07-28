@@ -14,7 +14,7 @@ import { ThemeContext } from "../../../Shared";
 import TaskItem from "../../Utility/TaskItem";
 import { LoadingBar } from "../../Utility/utility";
 
-import { get_bulletin } from "../../api/get/get_bulletin";
+import { get_no_worker_ongoing_tasks } from "../../api/get/get_tasks";
 import { put_accept_work } from "../../api/put/put";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
@@ -29,7 +29,7 @@ const Bulletin = () => {
   const [Tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    get_bulletin().then((data) => {
+    get_no_worker_ongoing_tasks().then((data) => {
       setTasks(data);
     });
   }, []);
@@ -71,6 +71,7 @@ const Bulletin = () => {
                 <View style={styles.task}>
                   <TaskItem
                     form={"block"}
+                    page={"Home"}
                     state={"Unaccepted"}
                     dayMode={"date"}
                     task={item}
