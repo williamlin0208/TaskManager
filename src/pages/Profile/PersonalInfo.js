@@ -38,7 +38,7 @@ const PersonalInfo = () => {
 
   const [name, setName] = useState('User');
   const [title, setTitle] = useState('None');
-  const [weeklyGoal, setWeeklyGoal] = useState("0");
+  const [weeklyGoalS, setWeeklyGoalS] = useState("0");
 
   const [isEdit, setIsEdit] = useState(false);
 
@@ -46,7 +46,7 @@ const PersonalInfo = () => {
     get_user_info(userId).then((data) => {
       setName(data.name);
       setTitle(data.title);
-      setWeeklyGoal(data.weeklyGoal.toString());
+      setWeeklyGoalS(data.weeklyGoal.toString());
     });
   },[]);
 
@@ -101,19 +101,19 @@ const PersonalInfo = () => {
             <TextInput
               style={{
                 height: 20,
-                width: "20%",
                 marginStart: "2%",
                 backgroundColor: "white",
                 borderWidth: 1,
                 borderColor: "grey",
                 borderRadius: 10,
                 paddingStart: 10,
+                paddingRight: 10
               }}
-              onChangeText={(text) => setWeeklyGoal(text)}
-              value={weeklyGoal}
+              onChangeText={(text) => setWeeklyGoalS(text)}
+              value={weeklyGoalS}
             />
             :
-            <Text style={{fontSize: 18}}>{weeklyGoal}</Text>
+            <Text style={{fontSize: 18}}>{weeklyGoalS}</Text>
             }
           </View>
         </View>
