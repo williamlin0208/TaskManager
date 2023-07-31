@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import DropDownPicker from "react-native-dropdown-picker";
 import {useNavigation} from '@react-navigation/core';
+import {Calendar, LocaleConfig} from 'react-native-calendars';
 
 const Statics = () => {
 
@@ -20,7 +21,9 @@ const Statics = () => {
     );
   };
 
-  const searchUnitList = [
+  
+
+  const UnitList = [
     { label: "Month", value: "Month" },
     { label: "Week", value: "Week" },
     { label: "Day", value: "Day" }
@@ -28,17 +31,60 @@ const Statics = () => {
 
   const [ModeName, setModeName] = useState("Salary");
   const [dropDownOpen, setDropDownOpen] = useState(false);
-  const [searchUnit, setSearchUnit] = useState("Month");
-  console.log(searchUnit);
+  const [Unit, setUnit] = useState("Month");
+
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDates, setSelectedDates] = useState('');
+  console.log(Unit, selectedDates);
+
+  const DatePicker = (props) => {
+    if(props.unit == "Month"){
+      return (
+        <Calendar
+          onDayPress={day => {
+            console.log(day);
+            setSelectedDates(`${day.dateString}`);
+          }}
+          markedDates={{
+            [selectedDates]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}
+          }}
+        />
+      );
+    }else if(props.unit == "Month"){
+      return (
+        <Calendar
+          onDayPress={day => {
+            console.log(day);
+            setSelectedDates(`${day.dateString}`);
+          }}
+          markedDates={{
+            [selectedDates]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}
+          }}
+        />
+      );
+    }else if(props.unit == "Day"){
+      return (
+        <Calendar
+          onDayPress={day => {
+            console.log(day);
+            setSelectedDates(`${day.dateString}`);
+          }}
+          markedDates={{
+            [selectedDates]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}
+          }}
+        />
+      );
+    }
+  };
 
   let moment = require("moment");
   
   let date = '';
-  if(searchUnit == "Month"){
+  if(Unit == "Month"){
     date = <Month moment={moment}/>
-  }else if(searchUnit == "Week"){
+  }else if(Unit == "Week"){
     date = <Week moment={moment}/>
-  }else if(searchUnit == "Day"){
+  }else if(Unit == "Day"){
     date = <Day moment={moment}/>
   }
 
@@ -57,15 +103,16 @@ const Statics = () => {
       </View>
       <View style={styles.datecontainer}>
       <View style = {{flex: 1}}></View>
-      <View style = {{flex: 10, marginHorizontal: "10%"}}>
-        <View>
-          <DropDownPicker
-            open={dropDownOpen}
-            setOpen={setDropDownOpen}
-            value={searchUnit}
-            setValue={setSearchUnit}
-            items={searchUnitList}
-          />
+      <View style = {{flex: 10, marginHorizontal: "5%", zIndex: 100}}>
+        <DropDownPicker
+          open={dropDownOpen}
+          setOpen={setDropDownOpen}
+          value={Unit}
+          setValue={setUnit}
+          items={UnitList}
+        />
+        <View style={{zIndex: 1}}>
+          {showDatePicker && <DatePicker unit={Unit}/>}
         </View>
         {date}
       </View>
@@ -80,17 +127,37 @@ export default Statics;
 const Month = (props) => {
   let startOfMonthM = props.moment().startOf("month");
   let endOfMonthM = props.moment().endOf("month");
-  console.log(startOfMonthM, endOfMonthM);
+  return (
+    <View>
+      <Text>
+        {startOfMonthM.format("YYYYY/MM")}
+      </Text>
+    </View>
+  );
 }
 
 const Week = (props) => {
   let startOfWeekM = props.moment().startOf("week");
   let endOfWeekM = props.moment().endOf("week");
+  return (
+    <View>
+      <Text>
+        {startOfWeekM.format("YYYYY/MM/DD")}~{endOfWeekM.format("YYYYY/MM/DD")}
+      </Text>
+    </View>
+  );
 }
 
 const Day = (props) => {
-  let startOfDayM = props.moment().startOf("day");
-  let endOfDayM = props.moment().endOf("day");
+  let DayM = props.moment().format("YYYYY/MM/DD");
+
+  return (
+    <View>
+      <Text>
+        {DayM}
+      </Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
