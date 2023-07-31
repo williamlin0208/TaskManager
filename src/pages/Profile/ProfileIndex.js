@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Profile from "./Profile";
 import PersonalInfo from "./PersonalInfo";
 import MyTasks from "./MyTasks";
-import LeaveSystem from "./LeaveSystem";
 import Statics from "./Statics";
 import Requests from "./Requests";
 import StaffAttendance from "./StaffAttendance";
@@ -29,11 +28,6 @@ const ProfileIndex = () => {
         name="MyTasks"
         component={MyTasks}
         options={{ title: "My Tasks" }}
-      />
-      <Stack.Screen
-        name="LeaveSystem"
-        component={LeaveSystem}
-        options={{ title: "Leave System" }}
       />
       <Stack.Screen
         name="Statics"

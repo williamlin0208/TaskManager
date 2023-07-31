@@ -60,9 +60,6 @@ const Profile = () => {
   onMyTasksPress = () => {
     navigation.navigate("MyTasks");
   }
-  onLeaveSystemPress = () => {
-    navigation.navigate("LeaveSystem");
-  }
   onStaticsPress = () => {
     navigation.navigate("Statics");
   }
@@ -104,7 +101,6 @@ const Profile = () => {
         </View>
         <Tool title='Personal Information' onToolPress={onPersonalInformationPress}/>
         <Tool title='My Tasks' onToolPress={onMyTasksPress}/>
-        <Tool title='Leave System' onToolPress={onLeaveSystemPress}/>
         <Tool title='Statics' onToolPress={onStaticsPress}/>
         {
           identity=='Manager'?
