@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import DropDownPicker from "react-native-dropdown-picker";
-import DateTimePicker from "react-native-modal-datetime-picker";
+// import DateTimePicker from "react-native-modal-datetime-picker";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const AllTasks = () => {
@@ -108,7 +108,7 @@ const SearchGroup = ({
       )}
       <TextInput />
 
-      <DateTimePicker
+      {/* <DateTimePicker
         isVisible={datePickerOpen}
         mode="date"
         date={date}
@@ -118,7 +118,7 @@ const SearchGroup = ({
         }}
         onCancel={() => setDatePickerOpen(false)}
         textColor="#007AFF"
-      />
+      /> */}
     </View>
   );
 };

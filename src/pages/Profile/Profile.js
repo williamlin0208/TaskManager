@@ -87,12 +87,14 @@ const Profile = () => {
             <Text style={{fontSize: 12, color: 'grey'}}>{identity}</Text>
             <Text style={{fontSize: 20}}>{name}</Text>
           </View>
-          <TouchableOpacity onPress={onSettingPress}>
-            <Icon name='settings' size={35} color='grey' style={styles.funtion}/>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={onLogoutPress}>
-            <Icon name='logout' size={35} color='grey' style={styles.funtion}/>
-          </TouchableOpacity>
+          <View style={styles.button}>
+            <TouchableOpacity onPress={onSettingPress}>
+              <Icon name='settings' size={35} color='grey' style={styles.funtion}/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onLogoutPress}>
+              <Icon name='logout' size={35} color='grey' style={styles.funtion}/>
+            </TouchableOpacity>
+          </View>
         </View>
 
         <Salary salary={salary} mode={mode} goal={goal} onModeChange={onModeChange}/>
@@ -226,12 +228,16 @@ const styles = StyleSheet.create({
   img:{
     height: SCREEN_HEIGHT/10,
     width: SCREEN_HEIGHT/10,
-    borderRadius: SCREEN_HEIGHT/10,
+    borderRadius: SCREEN_HEIGHT/10
   },
-  name: {
+  name:{
     flex: 1,
-    paddingLeft: 10,
-    justifyContent: 'center',
+    marginLeft: SCREEN_WIDTH/30
+  },
+  button: {
+    flexDirection: 'row'
+  },
+  progressbar: {
   },
   salary: {
     borderRadius: 10,
