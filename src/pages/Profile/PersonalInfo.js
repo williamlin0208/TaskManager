@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext}from 'react';
-import {View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Dimensions} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, TextInput, Image, TouchableOpacity, Dimensions} from 'react-native';
 import {Icon} from '@rneui/themed';
 
 import {useNavigation} from '@react-navigation/core';
@@ -38,7 +38,7 @@ const PersonalInfo = () => {
 
   const [name, setName] = useState('User');
   const [title, setTitle] = useState('None');
-  const [weeklyGoal, setWeeklyGoal] = useState(0);
+  const [weeklyGoal, setWeeklyGoal] = useState("0");
 
   const [isEdit, setIsEdit] = useState(false);
 
@@ -46,7 +46,7 @@ const PersonalInfo = () => {
     get_user_info(userId).then((data) => {
       setName(data.name);
       setTitle(data.title);
-      setWeeklyGoal(data.weeklyGoal);
+      setWeeklyGoal(data.weeklyGoal.toString());
     });
   },[]);
 
@@ -67,7 +67,7 @@ const PersonalInfo = () => {
             <View style={styles.imgblock}>
               <Image source={require('../../../assets/user-default.png')} style={styles.img}/>
             </View>
-            {isEdit && <ImgChangeBtn/>}
+            {isEdit ? <ImgChangeBtn/> : null}
           </View>
           <View style={styles.name}>
             <Text style={{fontSize: 12, color: 'grey'}}>{identity}</Text>
@@ -90,10 +90,31 @@ const PersonalInfo = () => {
         </View>
         <View style={{marginTop: 10, marginHorizontal: 5}}>
           <View>
-            <Text><Text style={styles.font}>Title: </Text>{title}</Text>
+            <Text style={{fontSize: 18}}>
+              <Text style={styles.font}>Title: </Text>
+              {title}
+            </Text>
           </View>
-          <View>
-            <Text><Text style={styles.font}>Weekly Goal: </Text>{weeklyGoal}</Text>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={styles.font}>Weekly Goal: </Text>
+            {isEdit?
+            <TextInput
+              style={{
+                height: 20,
+                width: "20%",
+                marginStart: "2%",
+                backgroundColor: "white",
+                borderWidth: 1,
+                borderColor: "grey",
+                borderRadius: 10,
+                paddingStart: 10,
+              }}
+              onChangeText={(text) => setWeeklyGoal(text)}
+              value={weeklyGoal}
+            />
+            :
+            <Text style={{fontSize: 18}}>{weeklyGoal}</Text>
+            }
           </View>
         </View>
         <View style={{height: 10}}></View>
