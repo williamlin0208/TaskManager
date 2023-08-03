@@ -24,11 +24,13 @@ const PersonalInfo = () => {
     };
   
     return (
-      <TouchableOpacity onPress={onPress}>
-        <View style={styles.change}>
-          <Text style={{color: 'white', fontWeight: 'bold'}}>Renew</Text>
-        </View>
-      </TouchableOpacity>
+      <View style={{paddingHorizontal: 5}}>
+        <TouchableOpacity onPress={onPress}>
+          <View style={styles.change}>
+            <Text style={{color: 'white', fontWeight: 'bold'}}>Renew</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     );
   };
 

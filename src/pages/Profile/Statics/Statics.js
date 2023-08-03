@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
 import DropDownPicker from "react-native-dropdown-picker";
 import {useNavigation} from '@react-navigation/core';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 
-const Statics = () => {
+import MyClaendar from './MyCalendar';
 
+const Statics = () => {
   const navigation=useNavigation();
+  let moment = require("moment");
 
   const Mode = (props) => {
     return (
@@ -21,8 +23,6 @@ const Statics = () => {
     );
   };
 
-  
-
   const UnitList = [
     { label: "Month", value: "Month" },
     { label: "Week", value: "Week" },
@@ -33,51 +33,13 @@ const Statics = () => {
   const [dropDownOpen, setDropDownOpen] = useState(false);
   const [Unit, setUnit] = useState("Month");
 
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [selectedDates, setSelectedDates] = useState('');
+  const [showDatePicker, setShowDatePicker] = useState(true);
+  const [selectedDates, setSelectedDates] = useState(moment().format("YYYYY/MM"));
+
   console.log(Unit, selectedDates);
+  console.log(ModeName);
 
-  const DatePicker = (props) => {
-    if(props.unit == "Month"){
-      return (
-        <Calendar
-          onDayPress={day => {
-            console.log(day);
-            setSelectedDates(`${day.dateString}`);
-          }}
-          markedDates={{
-            [selectedDates]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}
-          }}
-        />
-      );
-    }else if(props.unit == "Month"){
-      return (
-        <Calendar
-          onDayPress={day => {
-            console.log(day);
-            setSelectedDates(`${day.dateString}`);
-          }}
-          markedDates={{
-            [selectedDates]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}
-          }}
-        />
-      );
-    }else if(props.unit == "Day"){
-      return (
-        <Calendar
-          onDayPress={day => {
-            console.log(day);
-            setSelectedDates(`${day.dateString}`);
-          }}
-          markedDates={{
-            [selectedDates]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}
-          }}
-        />
-      );
-    }
-  };
-
-  let moment = require("moment");
+  
   
   let date = '';
   if(Unit == "Month"){
@@ -101,23 +63,17 @@ const Statics = () => {
         <Mode title={"Salary"} mode={ModeName} onPress={OnDonePress} />
         <Mode title={"Attendance"} mode={ModeName} onPress={OnUndonePress} />
       </View>
-      <View style={styles.datecontainer}>
-      <View style = {{flex: 1}}></View>
-      <View style = {{flex: 10, marginHorizontal: "5%", zIndex: 100}}>
-        <DropDownPicker
-          open={dropDownOpen}
-          setOpen={setDropDownOpen}
-          value={Unit}
-          setValue={setUnit}
-          items={UnitList}
-        />
-        <View style={{zIndex: 1}}>
-          {showDatePicker && <DatePicker unit={Unit}/>}
+        <View style={styles.datecontainer}>
+          <DropDownPicker
+            open={dropDownOpen}
+            setOpen={setDropDownOpen}
+            value={Unit}
+            setValue={setUnit}
+            items={UnitList}
+          />
+          {date}
+          {showDatePicker && <MyClaendar unit={Unit}/>}
         </View>
-        {date}
-      </View>
-      <View style = {{flex: 1}}></View>
-      </View>
     </View>
   );
 };
@@ -125,12 +81,13 @@ const Statics = () => {
 export default Statics;
 
 const Month = (props) => {
-  let startOfMonthM = props.moment().startOf("month");
-  let endOfMonthM = props.moment().endOf("month");
+  let monthM = props.moment();
+  let month = monthM.format("YYYYY/MM");
+
   return (
-    <View>
-      <Text>
-        {startOfMonthM.format("YYYYY/MM")}
+    <View >
+      <Text style={styles.datefont}>
+        {month}
       </Text>
     </View>
   );
@@ -141,7 +98,7 @@ const Week = (props) => {
   let endOfWeekM = props.moment().endOf("week");
   return (
     <View>
-      <Text>
+      <Text style={styles.datefont}>
         {startOfWeekM.format("YYYYY/MM/DD")}~{endOfWeekM.format("YYYYY/MM/DD")}
       </Text>
     </View>
@@ -153,7 +110,7 @@ const Day = (props) => {
 
   return (
     <View>
-      <Text>
+      <Text style={styles.datefont}>
         {DayM}
       </Text>
     </View>
@@ -178,6 +135,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   datecontainer: {
-    flex: 1
+    flex: 1,
+    paddingHorizontal: 20,
+    marginTop: 20
+  },
+  datefont: {
+    fontSize: 18,
+    fontFamily: "SpaceMono_700Bold",
+    color: '#555555'
   }
 });

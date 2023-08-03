@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Profile from "./Profile";
 import PersonalInfo from "./PersonalInfo";
 import MyTasks from "./MyTasks";
-import Statics from "./Statics";
+import Statics from "./Statics/Statics";
 import Requests from "./Requests";
 import StaffAttendance from "./StaffAttendance";
 import AllTasks from "./AllTasks";
