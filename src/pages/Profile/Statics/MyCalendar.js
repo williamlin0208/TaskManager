@@ -9,7 +9,6 @@ import {
 } from "react-native";
 
 import {Icon} from '@rneui/themed';
-import { List } from "native-base";
 
 const Months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const Days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -32,6 +31,17 @@ const MyClaendar = (props) => {
   onDatesSelected = (dates) => {
     setSelectedDates(dates);
     console.log(dates);
+    let setValue = '';
+    if(unit=='Day'){
+      setValue=dates[0];
+    }else if(unit=='Week'){
+      setValue=`${dates[0]}~${dates[dates.length-1]}`;
+    }else if(unit=='Month'){
+      let valuemoment = moment(dates[0], 'YYYY/MM/DD');
+      setValue=valuemoment.format("YYYY/MM");
+    }
+    console.log(setValue);
+    props.setSelectedDates(setValue);
   }
 
   changeoffset = (num) => {
@@ -97,33 +107,29 @@ const Body = (props) => {
   const selectedDates = props.selectedDates;
   const unit = props.unit;
 
-  console.log(monthStartM);
-
-  const Today = moment().format("YYYY-MM-DD");
-  const toMonth = monthStartM.format("YYYY-MM-DD");
-  console.log(Today[9]);
+  const Today = moment().format("YYYY/MM/DD");
+  const toMonth = monthStartM.format("YYYY/MM/DD");
 
   let dates = [];
 
   let tempD = monthStartM.clone().startOf("month").startOf("week");
   let endDay = monthStartM.clone().endOf("month").endOf("week").add(1,"day");
 
-  while(tempD.format("YYYY-MM-DD") != endDay.format("YYYY-MM-DD")){
-    dates.push(tempD.format("YYYY-MM-DD"));
+  while(tempD.format("YYYY/MM/DD") != endDay.format("YYYY/MM/DD")){
+    dates.push(tempD.format("YYYY/MM/DD"));
     tempD.add(1,"day");
   }
 
   const _onDatesSelected = (item) => {
-    let date = moment(item, 'YYYY-MM-DD');
+    let date = moment(item, 'YYYY/MM/DD');
 
     let startdatM = date.clone().startOf(unit.toLowerCase());
-    let endday = date.clone().endOf(unit.toLowerCase()).add(1,'day').format('YYYY-MM-DD');
+    let endday = date.clone().endOf(unit.toLowerCase()).add(1,'day').format('YYYY/MM/DD');
 
     arr = []
 
-    console.log(endday);
-    while(startdatM.format("YYYY-MM-DD")!=endday){
-      arr.push(startdatM.format("YYYY-MM-DD"));
+    while(startdatM.format("YYYY/MM/DD")!=endday){
+      arr.push(startdatM.format("YYYY/MM/DD"));
       startdatM.add(1,'day');
     }
     onDatesSelected(arr);

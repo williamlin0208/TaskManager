@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
 import DropDownPicker from "react-native-dropdown-picker";
 import {useNavigation} from '@react-navigation/core';
@@ -38,41 +38,54 @@ const Statics = () => {
 
   console.log(Unit, selectedDates);
   console.log(ModeName);
+  console.log("selectedDates:", selectedDates);
 
-  
-  
-  let date = '';
-  if(Unit == "Month"){
-    date = <Month moment={moment}/>
-  }else if(Unit == "Week"){
-    date = <Week moment={moment}/>
-  }else if(Unit == "Day"){
-    date = <Day moment={moment}/>
+  useEffect(() => {
+    let value = '';
+    if(Unit=="Month"){
+      value=moment().format("YYYY/MM");
+    }else if(Unit=="Week"){
+      value=`${moment().startOf('week').format("YYYYY/MM/DD")}~${moment().endOf('week').format("YYYYY/MM/DD")}`;
+    }else if(Unit=="Day"){
+      value=moment().format("YYYY/MM/DD");
+    }
+    setSelectedDates(value);
+  },[Unit]);
+
+  const OnModeChosen = (mode) => {
+    setModeName(mode);
   }
 
-  OnDonePress = () => {
-    setModeName("Salary");
-  };
-  OnUndonePress = () => {
-    setModeName("Attendance");
-  };
+  const OnChoosePress = () => {
+    setShowDatePicker(!showDatePicker);
+  }
+
 
   return (
     <View style={styles.container}>
       <View style={styles.modes}>
-        <Mode title={"Salary"} mode={ModeName} onPress={OnDonePress} />
-        <Mode title={"Attendance"} mode={ModeName} onPress={OnUndonePress} />
+        <Mode title={"Salary"} mode={ModeName} onPress={() => {OnModeChosen("Salary");}} />
+        <Mode title={"Attendance"} mode={ModeName} onPress={() => {OnModeChosen("Attendance");}} />
       </View>
         <View style={styles.datecontainer}>
-          <DropDownPicker
-            open={dropDownOpen}
-            setOpen={setDropDownOpen}
-            value={Unit}
-            setValue={setUnit}
-            items={UnitList}
-          />
-          {date}
-          {showDatePicker && <MyClaendar unit={Unit}/>}
+          <View style={{zIndex: 10}}>
+            <DropDownPicker
+              open={dropDownOpen}
+              setOpen={setDropDownOpen}
+              value={Unit}
+              setValue={setUnit}
+              items={UnitList}
+            />
+          </View>
+          <View style={{flexDirection: 'row', marginVertical: 10}}>
+            <View >
+              <Text style={styles.datefont}>
+                {selectedDates}
+              </Text>
+            </View>
+            <ChooseButton mode={showDatePicker?'Done':'Select'} onPress={OnChoosePress}/>
+          </View>
+          {showDatePicker && <MyClaendar unit={Unit} setSelectedDates={setSelectedDates}/>}
         </View>
     </View>
   );
@@ -80,41 +93,16 @@ const Statics = () => {
 
 export default Statics;
 
-const Month = (props) => {
-  let monthM = props.moment();
-  let month = monthM.format("YYYYY/MM");
-
+ChooseButton = (props) => {
   return (
-    <View >
-      <Text style={styles.datefont}>
-        {month}
-      </Text>
-    </View>
-  );
-}
-
-const Week = (props) => {
-  let startOfWeekM = props.moment().startOf("week");
-  let endOfWeekM = props.moment().endOf("week");
-  return (
-    <View>
-      <Text style={styles.datefont}>
-        {startOfWeekM.format("YYYYY/MM/DD")}~{endOfWeekM.format("YYYYY/MM/DD")}
-      </Text>
-    </View>
-  );
-}
-
-const Day = (props) => {
-  let DayM = props.moment().format("YYYYY/MM/DD");
-
-  return (
-    <View>
-      <Text style={styles.datefont}>
-        {DayM}
-      </Text>
-    </View>
-  );
+    <TouchableOpacity style={{marginLeft: 10}} onPress={props.onPress}>
+      <View style={{justifyContent: 'center', alignItems: 'center', padding: 5, borderRadius: 5, backgroundColor: '#aaaaaa'}}>
+        <Text style={{color: 'white', fontWeight: 'bold'}}>
+          {props.mode}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  )
 }
 
 const styles = StyleSheet.create({
