@@ -17,6 +17,7 @@ const MyClaendar = (props) => {
 
   const [offset, setOffset] = useState(0);
   const [selectedDates, setSelectedDates] = useState([]);
+  
 
   let moment = require("moment");
   let unit = props.unit || 'Month';
@@ -26,11 +27,9 @@ const MyClaendar = (props) => {
   
   let month = Months[Number(startMonthM.format('MM'))-1];
   let year = startMonthM.format('YYYY');
-  console.log(month,year);
 
   onDatesSelected = (dates) => {
     setSelectedDates(dates);
-    console.log(dates);
     let setValue = '';
     if(unit=='Day'){
       setValue=dates[0];
@@ -40,7 +39,6 @@ const MyClaendar = (props) => {
       let valuemoment = moment(dates[0], 'YYYY/MM/DD');
       setValue=valuemoment.format("YYYY/MM");
     }
-    console.log(setValue);
     props.setSelectedDates(setValue);
   }
 

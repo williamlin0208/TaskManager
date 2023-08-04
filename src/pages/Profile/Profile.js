@@ -152,7 +152,7 @@ const Salary = (props) => {
     )
   }
 
-  unacheived=props.goal-props.salary;
+  let unacheived=props.goal-props.salary;
   return (
     <View style={styles.salary}>
       <View style={{flexDirection: 'row'}}>
