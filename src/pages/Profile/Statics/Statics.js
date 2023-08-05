@@ -13,10 +13,10 @@ const Statics = () => {
 
   const Mode = (props) => {
     return (
-      <TouchableOpacity style={styles.mode} onPress={props.onPress}>
+      <TouchableOpacity style={styles.mode} onPress={() => {props.OnModeChosen(props.title)}}>
         <View style={styles.press}>
           <Text style={styles.modetext}>
-            <Text>{props.title[0]}</Text>
+            <Text style={props.title==props.mode?{fontSize: 20, fontWeight: 500}:{}}>{props.title[0]}</Text>
             {props.title.slice(1)}
           </Text>
         </View>
@@ -35,22 +35,11 @@ const Statics = () => {
   const [Unit, setUnit] = useState("Month");
 
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [selectedDates, setSelectedDates] = useState(moment().format("YYYYY/MM"));
+  const [selectedDates, setSelectedDates] = useState([moment().format("YYYYY/MM")]);
   const [loading, setLoading] = useState(false);
-
-  const [WeeklyGoal, setWeeklyGoal] =  useState(10000);
 
   console.log(Unit, selectedDates);
   console.log(ModeName);
-
-  let goal=WeeklyGoal;
-  if(Unit == "Month"){
-    goal=WeeklyGoal*30/7;
-  }else if(Unit == "Week"){
-    goal=WeeklyGoal;
-  }else if(Unit == "Day"){
-    goal=WeeklyGoal/7;
-  }
 
   useEffect(() => {
     let value = '';
@@ -66,6 +55,7 @@ const Statics = () => {
   },[Unit]);
 
   const OnModeChosen = (mode) => {
+    console.log("mode: ",mode);
     setModeName(mode);
   }
 
@@ -77,8 +67,8 @@ const Statics = () => {
   return (
     <View style={styles.container}>
       <View style={styles.modes}>
-        <Mode title={"Salary"} mode={ModeName} onPress={() => {OnModeChosen("Salary");}} />
-        <Mode title={"Attendance"} mode={ModeName} onPress={() => {OnModeChosen("Attendance");}} />
+        <Mode title={"Salary"} mode={ModeName} OnModeChosen={OnModeChosen} />
+        <Mode title={"Attendance"} mode={ModeName} OnModeChosen={OnModeChosen} />
       </View>
       <View style={styles.datecontainer}>
         <View style={{zIndex: 10}}>
@@ -104,7 +94,9 @@ const Statics = () => {
             {showDatePicker && <MyClaendar unit={Unit} setSelectedDates={setSelectedDates}/>}
           </View>
         </View>
-        {ModeName=="Salary"?<Salary salary={8000} mode={Unit} goal={goal}/>:<View></View>}
+        <ScrollView>
+          {ModeName=="Salary"?<Salary Unit={Unit}/>:<View></View>}
+        </ScrollView>
       </View>
     </View>
   );
@@ -126,27 +118,39 @@ ChooseButton = (props) => {
 
 const Salary = (props) => {
 
-  let unacheived=props.goal-props.salary;
+  const Unit = props.Unit;
+  const [salary, setSalary] = useState(8000);
+  const [WeeklyGoal, setWeeklyGoal] =  useState(10000);
+
+  let goal=WeeklyGoal;
+  if(Unit == "Month"){
+    goal=WeeklyGoal*30/7;
+  }else if(Unit == "Week"){
+    goal=WeeklyGoal;
+  }else if(Unit == "Day"){
+    goal=WeeklyGoal/7;
+  }
+
+  let unacheived=goal-salary;
   return (
     <View style={styles.salary}>
 
-
-      <Text style={{fontSize: 20, marginTop: 5}}>This {props.mode.toLowerCase()}, you've got</Text>
+      <Text style={{fontSize: 20, marginTop: 5}}>This {Unit.toLowerCase()}, you've got</Text>
       <View style={{flexDirection: 'row'}}>
         <Icon size={40} name='attach-money'/>
-        <Text style={styles.money}>{props.salary}NTD</Text>
+        <Text style={styles.money}>{salary}NTD</Text>
       </View>
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <View style={styles.progressbar}>
-          <View style={{flex: props.salary, height: 12,borderRadius: 100, backgroundColor: '#88baec'}}></View>
+          <View style={{flex: salary, height: 12,borderRadius: 100, backgroundColor: '#88baec'}}></View>
           <View style={{flex: unacheived}}></View>
-          <Text style={{fontWeight: 'bold', color: '#333333', position: 'absolute', right: 12}}>{(props.salary/props.goal*100).toFixed(2)}%</Text>
+          <Text style={{fontWeight: 'bold', color: '#333333', position: 'absolute', right: 12}}>{(salary/goal*100).toFixed(2)}%</Text>
         </View>
       </View>
 
       <View style={{alignItems: 'flex-end', marginTop: 5}}>
-        <Text style={{fontWeight: 'bold'}}>Goal:{props.goal.toFixed(2)}NTD</Text>
+        <Text style={{fontWeight: 'bold'}}>Goal:{goal.toFixed(2)}NTD</Text>
       </View>
     </View>
   );

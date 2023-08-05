@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    paddingVertical: 5,
     borderRightWidth: 0.5,
     borderLeftWidth: 0.5,
     borderColor: "white",
@@ -133,15 +134,14 @@ const styles = StyleSheet.create({
   modetext: {
     color: "white",
     fontSize: 12,
-    // fontFamily: 'monospace',
-    fontWeight: "bold",
+    fontWeight: 500,
   },
   press: {
     justifyContent: "center",
     alignItems: "center",
   },
   wordbegin: {
-    fontSize: 25,
-    fontWeight: "bold",
+    fontSize: 20,
+    fontWeight: 500,
   },
 });
