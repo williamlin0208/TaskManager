@@ -95,7 +95,7 @@ const Statics = () => {
           </View>
         </View>
         <ScrollView>
-          {ModeName=="Salary"?<Salary Unit={Unit}/>:<View></View>}
+          {ModeName=="Salary"?<Salary Unit={Unit}/>:<Attendance Unit={Unit}/>}
         </ScrollView>
       </View>
     </View>
@@ -151,6 +151,37 @@ const Salary = (props) => {
 
       <View style={{alignItems: 'flex-end', marginTop: 5}}>
         <Text style={{fontWeight: 'bold'}}>Goal:{goal.toFixed(2)}NTD</Text>
+      </View>
+    </View>
+  );
+}
+
+const Attendance = (props) => {
+
+  const Unit = props.Unit;
+  const [attTasksNum, setAttTasksNum] = useState(8);
+  const [allTasksNum, setAllTasksNum] =  useState(10);
+
+  const absTasksNum=allTasksNum-attTasksNum;
+
+  return (
+    <View style={styles.salary}>
+
+      <Text style={{fontSize: 20, marginTop: 5}}>This {Unit.toLowerCase()}, you've done</Text>
+      <View style={{flexDirection: 'row'}}>
+        <Icon size={40} name='done-all'/>
+        <Text style={styles.money}>{attTasksNum} Tasks</Text>
+      </View>
+
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={styles.progressbar}>
+          <View style={{flex: attTasksNum, height: 12,borderRadius: 100, backgroundColor: '#88baec'}}></View>
+          <View style={{flex: absTasksNum}}></View>
+          <Text style={{fontWeight: 'bold', color: '#333333', position: 'absolute', right: 12}}>{(attTasksNum/allTasksNum*100).toFixed(2)}%</Text>
+        </View>
+      </View>
+      <View style={{alignItems: 'flex-end', marginTop: 5}}>
+        <Text style={{fontWeight: 'bold'}}>Total: {allTasksNum.toFixed(2)} Tasks</Text>
       </View>
     </View>
   );
